@@ -232,9 +232,6 @@
     <Compile Include="Lib\ViewConverters\ExtinctionEventTimeIntervalConverter.cs" />
     <Compile Include="Common\ValidationRules\StringValidationRule.cs" />
     <Compile Include="Lib\ViewModel\SupplyCrateSettings.cs" />
-    <Compile Include="Windows\PluginsWindow.xaml.cs">
-      <DependentUpon>PluginsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\VersionFeedWindow.xaml.cs">
       <DependentUpon>VersionFeedWindow.xaml</DependentUpon>
     </Compile>
@@ -423,10 +420,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\PluginsWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Windows\VersionFeedWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -587,10 +580,6 @@
     <ProjectReference Include="..\NeXtVdf\NeXt.Vdf.csproj">
       <Project>{e4eda8b8-006c-4d41-822f-f64b6db0021f}</Project>
       <Name>NeXt.Vdf</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Plugin.Common\Plugin.Common.csproj">
-      <Project>{679fe859-9a82-4ffb-a758-c1e8df915f58}</Project>
-      <Name>Plugin.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\QueryMaster\QueryMaster.csproj">
       <Project>{4ca9c894-518f-42d7-bbe2-cfdfe7a03f8a}</Project>

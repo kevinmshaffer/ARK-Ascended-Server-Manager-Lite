@@ -4168,7 +4168,6 @@ namespace ARK_Server_Manager.Lib
             {
                 BackupWorldFile = false,
                 DeleteOldServerBackupFiles = false,
-                SendAlerts = false,
                 SendEmails = false,
                 OutputLogs = false
             };

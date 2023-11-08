@@ -281,28 +281,24 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
-                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Grid.Row="0" Grid.Column="0" Margin="5,0,0,0" HorizontalAlignment="Right" Click="Plugins_Click" ToolTip="{DynamicResource MainWindow_OpenPluginsTooltip}" Style="{StaticResource ButtonStyle1}">
-                            <Image Source="{lib:Icon Path=/Ark Server Manager;component/Art/Plugin.ico,Size=32}"/>
-                        </Button>
-                        <Button Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Right" Click="SteamCMD_Click" ToolTip="{DynamicResource MainWindow_SteamCMDTooltip}" Style="{StaticResource ButtonStyle1}">
+                        <Button Grid.Row="0" Grid.Column="0" Margin="5,0,0,0" HorizontalAlignment="Right" Click="SteamCMD_Click" ToolTip="{DynamicResource MainWindow_SteamCMDTooltip}" Style="{StaticResource ButtonStyle1}">
                             <Image Source="{lib:Icon Path=/Ark Server Manager;component/Art/Steam.ico,Size=32}"/>
                         </Button>
-                        <Button Grid.Row="0" Grid.Column="2" Margin="5,0,0,0" HorizontalAlignment="Right" Click="RCON_Click" ToolTip="{DynamicResource MainWindow_OpenRCONTooltip}" Style="{StaticResource ButtonStyle1}">
+                        <Button Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Right" Click="RCON_Click" ToolTip="{DynamicResource MainWindow_OpenRCONTooltip}" Style="{StaticResource ButtonStyle1}">
                             <Image Source="{lib:Icon Path=/Ark Server Manager;component/Art/Command.ico,Size=32}"/>
                         </Button>
-                        <Button Grid.Row="0" Grid.Column="3" Margin="5,0,0,0" HorizontalAlignment="Right" Click="OpenLogFolder_Click" ToolTip="{DynamicResource MainWindow_OpenLogFolderTooltip}" Style="{StaticResource ButtonStyle1}">
+                        <Button Grid.Row="0" Grid.Column="2" Margin="5,0,0,0" HorizontalAlignment="Right" Click="OpenLogFolder_Click" ToolTip="{DynamicResource MainWindow_OpenLogFolderTooltip}" Style="{StaticResource ButtonStyle1}">
                             <Image Source="{lib:Icon Path=/Ark Server Manager;component/Art/Logs.ico,Size=32}"/>
                         </Button>
-                        <Button Grid.Row="0" Grid.Column="4" Margin="5,0,0,0" HorizontalAlignment="Right" Click="Settings_Click" ToolTip="{DynamicResource MainWindow_OpenSettingsTooltip}" Style="{StaticResource ButtonStyle1}">
+                        <Button Grid.Row="0" Grid.Column="3" Margin="5,0,0,0" HorizontalAlignment="Right" Click="Settings_Click" ToolTip="{DynamicResource MainWindow_OpenSettingsTooltip}" Style="{StaticResource ButtonStyle1}">
                             <Image Source="{lib:Icon Path=/Ark Server Manager;component/Art/Settings.ico,Size=32}"/>
                         </Button>
-                        <Button Grid.Row="1" Grid.Column="1" Margin="5,2,0,0" HorizontalAlignment="Right" Click="Help_Click" ToolTip="{DynamicResource MainWindow_OpenHelpTooltip}" Style="{StaticResource ButtonStyle1}">
+                        <Button Grid.Row="1" Grid.Column="0" Margin="5,2,0,0" HorizontalAlignment="Right" Click="Help_Click" ToolTip="{DynamicResource MainWindow_OpenHelpTooltip}" Style="{StaticResource ButtonStyle1}">
                             <Image Source="{lib:Icon Path=/Ark Server Manager;component/Art/Help.ico,Size=32}"/>
                         </Button>
-                        <Button Grid.Row="1" Grid.Column="2" Margin="5,2,0,0" Grid.ColumnSpan="3" Click="Donate_Click" ToolTip="{DynamicResource MainWindow_DonateTooltip}" Style="{StaticResource ButtonStyle3}">
+                        <Button Grid.Row="1" Grid.Column="1" Margin="5,2,0,0" Grid.ColumnSpan="3" Click="Donate_Click" ToolTip="{DynamicResource MainWindow_DonateTooltip}" Style="{StaticResource ButtonStyle3}">
                             <Image Source="../Art/Donate.png"/>
                         </Button>
                     </Grid>

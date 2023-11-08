@@ -20,7 +20,6 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using ARK_Server_Manager.Lib.Model;
 using static ARK_Server_Manager.Lib.ServerApp;
-using ArkServerManager.Plugin.Common;
 
 namespace ARK_Server_Manager
 {
@@ -379,9 +378,6 @@ namespace ARK_Server_Manager
 
                         try
                         {
-                            PluginHelper.Instance.ProcessAlert(AlertType.Shutdown, this.Settings.ProfileName, Config.Default.Alert_ServerStopMessage);
-                            await Task.Delay(2000);
-
                             await this.Server.StopAsync();
                         }
                         catch (Exception ex)
@@ -442,11 +438,6 @@ namespace ARK_Server_Manager
                             }
 
                             await this.Server.StartAsync();
-
-                            PluginHelper.Instance.ProcessAlert(AlertType.Startup, this.Settings.ProfileName, Config.Default.Alert_ServerStartedMessage);
-                            if (this.Settings.ForceRespawnDinos)
-                                PluginHelper.Instance.ProcessAlert(AlertType.Startup, this.Settings.ProfileName, Config.Default.Alert_ForceRespawnDinos);
-                            await Task.Delay(2000);
                         }
                         else
                         {

@@ -13,7 +13,6 @@ using WPFSharp.Globalizer;
 using System.Globalization;
 using System.Diagnostics;
 using System.Linq;
-using ArkServerManager.Plugin.Common;
 using System.Net;
 using ArkData;
 
@@ -196,10 +195,6 @@ namespace ARK_Server_Manager
             {
                 BetaVersion = true;
             }
-
-            var installPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            PluginHelper.Instance.BetaEnabled = BetaVersion;
-            PluginHelper.Instance.LoadPlugins(installPath, true);
 
             // check if we are starting ASM for the old server restart - no longer supported
             if (e.Args.Any(a => a.StartsWith(ARG_AUTORESTART)))

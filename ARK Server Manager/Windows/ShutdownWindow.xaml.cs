@@ -8,7 +8,6 @@ using System.Windows;
 using ARK_Server_Manager.Lib;
 using WPFSharp.Globalizer;
 using static ARK_Server_Manager.Lib.ServerApp;
-using ArkServerManager.Plugin.Common;
 
 namespace ARK_Server_Manager
 {
@@ -143,7 +142,6 @@ namespace ARK_Server_Manager
                     ShutdownInterval = this.ShutdownInterval,
                     ShutdownReason = this.ShutdownReason,
                     OutputLogs = false,
-                    SendAlerts = true,
                     ServerProcess = RestartServer ? ServerProcessType.Restart : ServerProcessType.Shutdown,
                     ProgressCallback = (p, m, n) => { TaskUtils.RunOnUIThreadAsync(() => { this.AddMessage(m, n); }).DoNotWait(); },
                 };
@@ -188,9 +186,6 @@ namespace ARK_Server_Manager
             {
                 ShutdownType = 2;
                 Application.Current.Dispatcher.Invoke(() => this.Cursor = System.Windows.Input.Cursors.Wait);
-
-                PluginHelper.Instance.ProcessAlert(AlertType.Shutdown, Server.Profile.ProfileName, Config.Default.Alert_ServerStopMessage);
-                await Task.Delay(2000);
 
                 await this.Server.StopAsync();
 

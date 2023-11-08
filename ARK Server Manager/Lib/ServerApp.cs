@@ -15,14 +15,12 @@ using System.Reflection;
 using WPFSharp.Globalizer;
 using ARK_Server_Manager.Lib.Utils;
 using System.Net.Mail;
-using ArkServerManager.Plugin.Common;
 
 namespace ARK_Server_Manager.Lib
 {
     internal class ServerApp
     {
         private readonly GlobalizedApplication _globalizer = GlobalizedApplication.Instance;
-        private readonly PluginHelper _pluginHelper = PluginHelper.Instance;
 
         public enum ServerProcessType
         {
@@ -102,7 +100,6 @@ namespace ARK_Server_Manager.Lib
         public bool DeleteOldServerBackupFiles = false;
         public int ExitCode = EXITCODE_NORMALEXIT;
         public bool OutputLogs = true;
-        public bool SendAlerts = false;
         public bool SendEmails = false;
         public string ShutdownReason = null;
         public string UpdateReason = null;
@@ -159,7 +156,6 @@ namespace ARK_Server_Manager.Lib
                             // perform a world save
                             if (!string.IsNullOrWhiteSpace(Config.Default.ServerBackup_WorldSaveMessage))
                             {
-                                ProcessAlert(AlertType.Backup, Config.Default.ServerBackup_WorldSaveMessage);
                                 sent = SendMessage(Config.Default.ServerBackup_WorldSaveMessage, CancellationToken.None);
                                 if (sent)
                                 {
@@ -343,15 +339,15 @@ namespace ARK_Server_Manager.Lib
                 }
 
                 LogProfileMessage("Started server successfully.");
-                LogProfileMessage("");
 
                 if (Config.Default.EmailNotify_ShutdownRestart)
                     SendEmail($"{_profile.ProfileName} server started", Config.Default.Alert_ServerStartedMessage, false);
 
-                ProcessAlert(AlertType.Startup, Config.Default.Alert_ServerStartedMessage);
                 if (_profile.ForceRespawnDinos)
-                    ProcessAlert(AlertType.Startup, Config.Default.Alert_ForceRespawnDinos);
-            }
+					LogProfileMessage("A wild dino wipe is scheduled after the server starts and may delay login until it is complete.");
+
+				LogProfileMessage("");
+			}
             ExitCode = EXITCODE_NORMALEXIT;
         }
 
@@ -395,7 +391,6 @@ namespace ARK_Server_Manager.Lib
                 {
                     LogProfileMessage("Sending shutdown reason...");
 
-                    ProcessAlert(AlertType.ShutdownReason, ShutdownReason);
                     SendMessage(ShutdownReason, cancellationToken);
                 }
 
@@ -410,7 +405,6 @@ namespace ARK_Server_Manager.Lib
 
                         if (!string.IsNullOrWhiteSpace(Config.Default.ServerShutdown_CancelMessage))
                         {
-                            ProcessAlert(AlertType.Shutdown, Config.Default.ServerShutdown_CancelMessage);
                             SendMessage(Config.Default.ServerShutdown_CancelMessage, CancellationToken.None);
                         }
 
@@ -483,13 +477,9 @@ namespace ARK_Server_Manager.Lib
                     sent = false;
                     if (!string.IsNullOrWhiteSpace(message))
                     {
-                        ProcessAlert(AlertType.ShutdownMessage, message);
-
                         // check if there is a shutdown reason
                         if (!string.IsNullOrWhiteSpace(ShutdownReason) && Config.Default.ServerShutdown_AllMessagesShowReason)
                         {
-                            ProcessAlert(AlertType.ShutdownReason, ShutdownReason);
-
                             message = $"{message}\r\n{ShutdownReason}";
                         }
 
@@ -514,7 +504,6 @@ namespace ARK_Server_Manager.Lib
                         if (!string.IsNullOrWhiteSpace(Config.Default.ServerShutdown_WorldSaveMessage))
                         {
                             LogProfileMessage(Config.Default.ServerShutdown_WorldSaveMessage);
-                            ProcessAlert(AlertType.ShutdownMessage, Config.Default.ServerShutdown_WorldSaveMessage);
                             SendMessage(Config.Default.ServerShutdown_WorldSaveMessage, cancellationToken);
                         }
 
@@ -539,7 +528,6 @@ namespace ARK_Server_Manager.Lib
 
                     if (!string.IsNullOrWhiteSpace(Config.Default.ServerShutdown_CancelMessage))
                     {
-                        ProcessAlert(AlertType.Shutdown, Config.Default.ServerShutdown_CancelMessage);
                         SendMessage(Config.Default.ServerShutdown_CancelMessage, CancellationToken.None);
                     }
 
@@ -551,13 +539,10 @@ namespace ARK_Server_Manager.Lib
                 if (!string.IsNullOrWhiteSpace(Config.Default.ServerShutdown_GraceMessage3))
                 {
                     var message = Config.Default.ServerShutdown_GraceMessage3;
-                    ProcessAlert(AlertType.ShutdownMessage, message);
 
                     // check if there is a shutdown reason
                     if (!string.IsNullOrWhiteSpace(ShutdownReason) && Config.Default.ServerShutdown_AllMessagesShowReason)
                     {
-                        ProcessAlert(AlertType.ShutdownReason, ShutdownReason);
-
                         message = $"{message}\r\n{ShutdownReason}";
                     }
 
@@ -581,7 +566,6 @@ namespace ARK_Server_Manager.Lib
 
                 if (!string.IsNullOrWhiteSpace(Config.Default.ServerShutdown_CancelMessage))
                 {
-                    ProcessAlert(AlertType.Shutdown, Config.Default.ServerShutdown_CancelMessage);
                     SendMessage(Config.Default.ServerShutdown_CancelMessage, CancellationToken.None);
                 }
 
@@ -596,7 +580,6 @@ namespace ARK_Server_Manager.Lib
                 // Stop the server
                 LogProfileMessage("");
                 LogProfileMessage("Stopping server...");
-                ProcessAlert(AlertType.Shutdown, Config.Default.Alert_ServerShutdownMessage);
 
                 TaskCompletionSource<bool> ts = new TaskCompletionSource<bool>();
                 EventHandler handler = (s, e) => ts.TrySetResult(true);
@@ -1383,8 +1366,6 @@ namespace ARK_Server_Manager.Lib
                     emailMessage.AppendLine("See attached log file more details.");
                     SendEmail($"{_profile.ProfileName} auto update finished", emailMessage.ToString(), true);
                 }
-
-                ProcessAlert(AlertType.UpdateResults, alertMessage.ToString());
             }
             else
             {
@@ -2458,17 +2439,6 @@ namespace ARK_Server_Manager.Lib
                 Debug.WriteLine(message);
         }
 
-        private void ProcessAlert(AlertType alertType, string alertMessage)
-        {
-            if (_pluginHelper == null || !SendAlerts || string.IsNullOrWhiteSpace(alertMessage))
-                return;
-
-            if (_pluginHelper.ProcessAlert(alertType, _profile?.ProfileName ?? String.Empty, alertMessage))
-            {
-                LogProfileMessage($"Alert message sent - {alertType}: {alertMessage}", false);
-            }
-        }
-
         private bool SendCommand(string command, bool retryIfFailed)
         {
             if (_profile == null || !_profile.RCONEnabled)
@@ -2648,7 +2618,6 @@ namespace ARK_Server_Manager.Lib
                     {
                         if (Config.Default.EmailNotify_AutoBackup)
                             SendEmail($"{_profile.ProfileName} server backup", Config.Default.Alert_BackupProcessError, true);
-                        ProcessAlert(AlertType.Error, Config.Default.Alert_BackupProcessError);
                     }
                 }
                 else
@@ -2666,7 +2635,6 @@ namespace ARK_Server_Manager.Lib
 
                 if (Config.Default.EmailNotify_AutoBackup)
                     SendEmail($"{_profile.ProfileName} server update", Config.Default.Alert_BackupProcessError, true);
-                ProcessAlert(AlertType.Error, Config.Default.Alert_BackupProcessError);
                 ExitCode = EXITCODE_UNKNOWNTHREADERROR;
             }
             finally
@@ -2719,10 +2687,6 @@ namespace ARK_Server_Manager.Lib
                             else
                                 SendEmail($"{_profile.ProfileName} server shutdown", Config.Default.Alert_ShutdownProcessError, true);
                         }
-                        if (performRestart)
-                            ProcessAlert(AlertType.Error, Config.Default.Alert_RestartProcessError);
-                        else
-                            ProcessAlert(AlertType.Error, Config.Default.Alert_ShutdownProcessError);
                     }
                 }
                 else
@@ -2748,10 +2712,6 @@ namespace ARK_Server_Manager.Lib
                     else
                         SendEmail($"{_profile.ProfileName} server shutdown", Config.Default.Alert_ShutdownProcessError, true);
                 }
-                if (performRestart)
-                    ProcessAlert(AlertType.Error, Config.Default.Alert_RestartProcessError);
-                else
-                    ProcessAlert(AlertType.Error, Config.Default.Alert_ShutdownProcessError);
                 ExitCode = EXITCODE_UNKNOWNTHREADERROR;
             }
             finally
@@ -2806,7 +2766,6 @@ namespace ARK_Server_Manager.Lib
                     {
                         if (Config.Default.EmailNotify_AutoUpdate)
                             SendEmail($"{_profile.ProfileName} server update", Config.Default.Alert_UpdateProcessError, true);
-                        ProcessAlert(AlertType.Error, Config.Default.Alert_UpdateProcessError);
                     }
                 }
                 else
@@ -2828,7 +2787,6 @@ namespace ARK_Server_Manager.Lib
 
                 if (Config.Default.EmailNotify_AutoUpdate)
                     SendEmail($"{_profile.ProfileName} server update", Config.Default.Alert_UpdateProcessError, true);
-                ProcessAlert(AlertType.Error, Config.Default.Alert_UpdateProcessError);
                 ExitCode = EXITCODE_UNKNOWNTHREADERROR;
             }
             finally
@@ -2879,7 +2837,6 @@ namespace ARK_Server_Manager.Lib
                     {
                         if (Config.Default.EmailNotify_AutoUpdate)
                             SendEmail($"{GetBranchName(branch.BranchName)} branch update", Config.Default.Alert_UpdateProcessError, true);
-                        ProcessAlert(AlertType.Error, Config.Default.Alert_UpdateProcessError);
                     }
 
                     if (ExitCode == EXITCODE_NORMALEXIT)
@@ -2893,7 +2850,6 @@ namespace ARK_Server_Manager.Lib
                             Parallel.ForEach(profiles, profile =>
                             {
                                 var app = new ServerApp();
-                                app.SendAlerts = true;
                                 app.SendEmails = true;
                                 app.ServerProcess = ServerProcess;
                                 app.SteamCMDProcessWindowStyle = ProcessWindowStyle.Hidden;
@@ -2905,7 +2861,6 @@ namespace ARK_Server_Manager.Lib
                             foreach (var profile in _profiles.Keys.Where(p => p.EnableAutoUpdate))
                             {
                                 var app = new ServerApp();
-                                app.SendAlerts = true;
                                 app.SendEmails = true;
                                 app.ServerProcess = ServerProcess;
                                 app.SteamCMDProcessWindowStyle = ProcessWindowStyle.Hidden;
@@ -2938,7 +2893,6 @@ namespace ARK_Server_Manager.Lib
 
                 if (Config.Default.EmailNotify_AutoUpdate)
                     SendEmail($"{GetBranchName(branch.BranchName)} branch update", Config.Default.Alert_UpdateProcessError, true);
-                ProcessAlert(AlertType.Error, Config.Default.Alert_UpdateProcessError);
                 ExitCode = EXITCODE_UNKNOWNTHREADERROR;
             }
             finally
@@ -2978,7 +2932,6 @@ namespace ARK_Server_Manager.Lib
                 Parallel.ForEach(_profiles.Keys.Where(p => p.EnableAutoBackup), profile => {
                     var app = new ServerApp();
                     app.DeleteOldServerBackupFiles = Config.Default.AutoBackup_DeleteOldFiles;
-                    app.SendAlerts = true;
                     app.SendEmails = true;
                     app.ServerProcess = ServerProcessType.AutoBackup;
                     exitCodes.TryAdd(profile, app.PerformProfileBackup(profile));
@@ -3062,7 +3015,6 @@ namespace ARK_Server_Manager.Lib
                     return EXITCODE_AUTOSHUTDOWNNOTENABLED;
 
                 var app = new ServerApp();
-                app.SendAlerts = true;
                 app.SendEmails = true;
                 app.ServerProcess = type;
                 app.SteamCMDProcessWindowStyle = ProcessWindowStyle.Hidden;

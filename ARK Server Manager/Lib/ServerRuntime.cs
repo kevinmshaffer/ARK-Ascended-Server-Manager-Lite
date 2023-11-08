@@ -1,5 +1,4 @@
 ﻿using ARK_Server_Manager.Lib.Model;
-using ArkServerManager.Plugin.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -366,7 +365,6 @@ namespace ARK_Server_Manager.Lib
             {
                 BackupWorldFile = false,
                 DeleteOldServerBackupFiles = false,
-                SendAlerts = false,
                 SendEmails = false,
                 OutputLogs = false
             };
@@ -937,9 +935,6 @@ namespace ARK_Server_Manager.Lib
             this.Steam = steamStatus;
 
             UpdateServerStatusString();
-
-            if (!string.IsNullOrWhiteSpace(Config.Default.Alert_ServerStatusChange) && sendAlert)
-                PluginHelper.Instance.ProcessAlert(AlertType.ServerStatusChange, this.ProfileSnapshot.ProfileName, $"{Config.Default.Alert_ServerStatusChange} {Status}");
         }
 
         public void UpdateServerStatusString()
