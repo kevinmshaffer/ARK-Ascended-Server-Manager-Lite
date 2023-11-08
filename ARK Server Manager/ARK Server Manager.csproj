@@ -26,8 +26,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
-    <SupportUrl>http://arkservermanager.freeforums.net/thread/1194/faq-frequently-asked</SupportUrl>
-    <ErrorReportUrl>http://arkservermanager.freeforums.net/board/3/tech-support-bug-reports</ErrorReportUrl>
+    <SupportUrl>
+    </SupportUrl>
+    <ErrorReportUrl>
+    </ErrorReportUrl>
     <ProductName>Ark Server Manager</ProductName>
     <PublisherName>Ark Server Manager</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
