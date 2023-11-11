@@ -32,7 +32,6 @@ namespace ARK_Server_Manager.Lib.Utils
                 data.SupplyCrates.AddRange(fileData.SupplyCrates);
                 data.Inventories.AddRange(fileData.Inventories);
                 data.GameMaps.AddRange(fileData.GameMaps);
-                data.Mods.AddRange(fileData.Mods);
                 data.PlayerLevels.AddRange(fileData.PlayerLevels);
                 data.CreatureLevels.AddRange(fileData.CreatureLevels);
                 data.Branches.AddRange(fileData.Branches);
@@ -56,7 +55,6 @@ namespace ARK_Server_Manager.Lib.Utils
             WriteSupplyCrateData(data);
             WriteInventoryData(data);
             WriteGameMapData(data);
-            WriteTotalConversionData(data);
             WritePlayerLevelData(data);
             WriteCreatureLevelData(data);
 
@@ -258,76 +256,9 @@ namespace ARK_Server_Manager.Lib.Utils
                     ClassName = item.ValueMember,
                     Description = item.DisplayMember,
                     Mod = arkApplication,
-                    IsSotF = false,
                 };
 
                 data[arkApplication].GameMaps.Add(dataItem);
-            }
-
-            list = GameData.GetGameMapsSotF();
-            foreach (var item in list)
-            {
-                var arkApplication = ArkApplication.SurvivalEvolved.ToString();
-
-                if (!data.ContainsKey(arkApplication))
-                {
-                    data.Add(arkApplication, new BaseGameData());
-                }
-
-                var dataItem = new GameMapDataItem
-                {
-                    ClassName = item.ValueMember,
-                    Description = item.DisplayMember,
-                    Mod = arkApplication,
-                    IsSotF = true,
-                };
-
-                data[arkApplication].GameMaps.Add(dataItem);
-            }
-        }
-
-        private static void WriteTotalConversionData(Dictionary<string, BaseGameData> data)
-        {
-            var list = GameData.GetTotalConversions();
-            foreach (var item in list)
-            {
-                var arkApplication = ArkApplication.SurvivalEvolved.ToString();
-
-                if (!data.ContainsKey(arkApplication))
-                {
-                    data.Add(arkApplication, new BaseGameData());
-                }
-
-                var dataItem = new TotalConversionDataItem
-                {
-                    ClassName = item.ValueMember,
-                    Description = item.DisplayMember,
-                    Mod = arkApplication,
-                    IsSotF = false,
-                };
-
-                data[arkApplication].Mods.Add(dataItem);
-            }
-
-            list = GameData.GetTotalConversionsSotF();
-            foreach (var item in list)
-            {
-                var arkApplication = ArkApplication.SurvivalEvolved.ToString();
-
-                if (!data.ContainsKey(arkApplication))
-                {
-                    data.Add(arkApplication, new BaseGameData());
-                }
-
-                var dataItem = new TotalConversionDataItem
-                {
-                    ClassName = item.ValueMember,
-                    Description = item.DisplayMember,
-                    Mod = arkApplication,
-                    IsSotF = true,
-                };
-
-                data[arkApplication].Mods.Add(dataItem);
             }
         }
 
@@ -409,9 +340,6 @@ namespace ARK_Server_Manager.Lib.Utils
         public List<GameMapDataItem> GameMaps = new List<GameMapDataItem>();
 
         [DataMember(IsRequired = false)]
-        public List<TotalConversionDataItem> Mods = new List<TotalConversionDataItem>();
-
-        [DataMember(IsRequired = false)]
         public List<PlayerLevelDataItem> PlayerLevels = new List<PlayerLevelDataItem>();
 
         [DataMember(IsRequired = false)]
@@ -433,7 +361,6 @@ namespace ARK_Server_Manager.Lib.Utils
             data.SupplyCrates.ForEach(c => c.IsUserData = isUserData);
             data.Inventories.ForEach(c => c.IsUserData = isUserData);
             data.GameMaps.ForEach(c => c.IsUserData = isUserData);
-            data.Mods.ForEach(c => c.IsUserData = isUserData);
             data.Branches.ForEach(c => c.IsUserData = isUserData);
             return data;
         }
@@ -567,15 +494,6 @@ namespace ARK_Server_Manager.Lib.Utils
     [DataContract]
     public class GameMapDataItem : BaseDataItem
     {
-        [DataMember]
-        public bool IsSotF = false;
-    }
-
-    [DataContract]
-    public class TotalConversionDataItem : BaseDataItem
-    {
-        [DataMember]
-        public bool IsSotF = false;
     }
 
     [DataContract]
@@ -597,8 +515,6 @@ namespace ARK_Server_Manager.Lib.Utils
     [DataContract]
     public class BranchDataItem
     {
-        [DataMember]
-        public bool IsSotF = false;
         [DataMember]
         public string BranchName = string.Empty;
         [DataMember]

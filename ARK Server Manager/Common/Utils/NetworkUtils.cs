@@ -59,29 +59,6 @@ namespace ARK_Server_Manager.Lib
             return adapters;
         }
 
-        public static async Task<Version> GetLatestASMVersion()
-        {
-            using (var webClient = new WebClient())
-            {
-                try
-                {
-                    string latestVersion = null;
-
-                    if (App.Instance.BetaVersion)
-                        latestVersion = await webClient.DownloadStringTaskAsync(Config.Default.LatestASMBetaVersionUrl);
-                    else
-                        latestVersion = await webClient.DownloadStringTaskAsync(Config.Default.LatestASMVersionUrl);
-
-                    return Version.Parse(latestVersion);
-                }
-                catch (Exception ex)
-                {
-                    Logger.Debug(String.Format("Exception checking for ASM version: {0}", ex.Message));
-                    return new Version();
-                }
-            }
-        }
-
         public static NetworkAdapterEntry GetPreferredIP(IEnumerable<NetworkAdapterEntry> adapters)
         {
             //

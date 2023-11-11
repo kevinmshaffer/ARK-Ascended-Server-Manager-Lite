@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 
 namespace ARK_Server_Manager.Lib
@@ -22,8 +23,6 @@ namespace ARK_Server_Manager.Lib
         public bool RCONEnabled;
         public int RCONPort;
         public string ServerMap;
-        public string ServerMapModId;
-        public string TotalConversionModId;
         public List<string> ServerModIds;
         public int MotDDuration;
         public bool ForceRespawnDinos;
@@ -41,8 +40,6 @@ namespace ARK_Server_Manager.Lib
         public bool RestartAfterShutdown2;
         public bool UpdateAfterShutdown2;
         public bool AutoRestartIfShutdown;
-
-        public bool SotFEnabled;
 
         public int MaxPlayerCount;
 
@@ -69,9 +66,7 @@ namespace ARK_Server_Manager.Lib
                 RCONEnabled = profile.RCONEnabled,
                 RCONPort = profile.RCONPort,
                 ServerMap = ServerProfile.GetProfileMapName(profile),
-                ServerMapModId = ServerProfile.GetProfileMapModId(profile),
-                TotalConversionModId = profile.TotalConversionModId ?? string.Empty,
-                ServerModIds = ModUtils.GetModIdList(profile.ServerModIds),
+                ServerModIds = profile.ServerModIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList(),
                 MotDDuration = Math.Max(profile.MOTDDuration, 10),
                 ForceRespawnDinos = profile.ForceRespawnDinos,
 
@@ -88,8 +83,6 @@ namespace ARK_Server_Manager.Lib
                 RestartAfterShutdown2 = profile.RestartAfterShutdown2,
                 UpdateAfterShutdown2 = profile.UpdateAfterShutdown2,
                 AutoRestartIfShutdown = profile.AutoRestartIfShutdown,
-
-                SotFEnabled = profile.SOTF_Enabled,
 
                 MaxPlayerCount = profile.MaxPlayers,
 

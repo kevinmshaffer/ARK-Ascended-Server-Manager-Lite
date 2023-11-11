@@ -88,26 +88,9 @@ namespace ARK_Server_Manager.Lib
             if (gameData.GameMaps.Count > 0)
             {
                 var maps1 = gameMaps.ToList();
-                maps1.AddRange(gameData.GameMaps.Where(item => !item.IsSotF).ToList().ConvertAll(item => new ComboBoxItem { ValueMember = item.ClassName, DisplayMember = item.Description }));
-                var maps2 = gameMapsSotF.ToList();
-                maps2.AddRange(gameData.GameMaps.Where(item => item.IsSotF).ToList().ConvertAll(item => new ComboBoxItem { ValueMember = item.ClassName, DisplayMember = item.Description }));
+                maps1.AddRange(gameData.GameMaps.ToList().ConvertAll(item => new ComboBoxItem { ValueMember = item.ClassName, DisplayMember = item.Description }));
 
                 gameMaps = maps1.ToArray();
-                gameMapsSotF = maps2.ToArray();
-            }
-
-            // total conversion mods
-            gameData.Mods.AddRange(userGameData.Mods);
-
-            if (gameData.Mods.Count > 0)
-            {
-                var mods1 = totalConversions.ToList();
-                mods1.AddRange(gameData.Mods.Where(item => !item.IsSotF).ToList().ConvertAll(item => new ComboBoxItem { ValueMember = item.ClassName, DisplayMember = item.Description }));
-                var mods2 = totalConversionsSotF.ToList();
-                mods2.AddRange(gameData.Mods.Where(item => item.IsSotF).ToList().ConvertAll(item => new ComboBoxItem { ValueMember = item.ClassName, DisplayMember = item.Description }));
-
-                totalConversions = mods1.ToArray();
-                totalConversionsSotF = mods2.ToArray();
             }
 
             // creature levels
@@ -136,12 +119,9 @@ namespace ARK_Server_Manager.Lib
             if (gameData.Branches.Count > 0)
             {
                 var branches1 = branches.ToList();
-                branches1.AddRange(gameData.Branches.Where(item => !item.IsSotF).ToList().ConvertAll(item => new ComboBoxItem { ValueMember = item.BranchName, DisplayMember = item.Description }));
-                var branches2 = branchesSotF.ToList();
-                branches2.AddRange(gameData.Branches.Where(item => item.IsSotF).ToList().ConvertAll(item => new ComboBoxItem { ValueMember = item.BranchName, DisplayMember = item.Description }));
+                branches1.AddRange(gameData.Branches.ToList().ConvertAll(item => new ComboBoxItem { ValueMember = item.BranchName, DisplayMember = item.Description }));
 
                 branches = branches1.ToArray();
-                branchesSotF = branches2.ToArray();
             }
         }
 
@@ -237,36 +217,8 @@ namespace ARK_Server_Manager.Lib
 
         public static IEnumerable<ComboBoxItem> GetGameMaps() => gameMaps.Select(d => d.Duplicate());
 
-        public static string FriendlyMapNameForClass(string className, bool returnEmptyIfNotFound = false) => string.IsNullOrWhiteSpace(className) ? string.Empty : GlobalizedApplication.Instance.GetResourceString(className) ?? gameData?.GameMaps?.FirstOrDefault(i => i.ClassName.Equals(className) && !i.IsSotF)?.Description ?? (returnEmptyIfNotFound ? string.Empty : className);
+        public static string FriendlyMapNameForClass(string className, bool returnEmptyIfNotFound = false) => string.IsNullOrWhiteSpace(className) ? string.Empty : GlobalizedApplication.Instance.GetResourceString(className) ?? gameData?.GameMaps?.FirstOrDefault(i => i.ClassName.Equals(className))?.Description ?? (returnEmptyIfNotFound ? string.Empty : className);
 
-        private static ComboBoxItem[] gameMapsSotF = new[]
-        {
-            new ComboBoxItem { ValueMember=Config.Default.DefaultServerMap, DisplayMember=FriendlyNameForClass(Config.Default.DefaultServerMap) },
-        };
-
-        public static IEnumerable<ComboBoxItem> GetGameMapsSotF() => gameMapsSotF.Select(d => d.Duplicate());
-
-        public static string FriendlyMapSotFNameForClass(string className, bool returnEmptyIfNotFound = false) => string.IsNullOrWhiteSpace(className) ? string.Empty : GlobalizedApplication.Instance.GetResourceString(className) ?? gameData?.GameMaps?.FirstOrDefault(i => i.ClassName.Equals(className) && i.IsSotF)?.Description ?? (returnEmptyIfNotFound ? string.Empty : className);
-        #endregion
-
-        #region Total Conversions
-        private static ComboBoxItem[] totalConversions = new[]
-        {
-            new ComboBoxItem { ValueMember="", DisplayMember="" },
-        };
-
-        public static IEnumerable<ComboBoxItem> GetTotalConversions() => totalConversions.Select(d => d.Duplicate());
-
-        public static string FriendlyTotalConversionNameForClass(string className, bool returnEmptyIfNotFound = false) => string.IsNullOrWhiteSpace(className) ? string.Empty : GlobalizedApplication.Instance.GetResourceString(className) ?? gameData?.Mods?.FirstOrDefault(i => i.ClassName.Equals(className) && !i.IsSotF)?.Description ?? (returnEmptyIfNotFound ? string.Empty : className);
-
-        private static ComboBoxItem[] totalConversionsSotF = new[]
-        {
-            new ComboBoxItem { ValueMember="", DisplayMember="" },
-        };
-
-        public static IEnumerable<ComboBoxItem> GetTotalConversionsSotF() => totalConversionsSotF.Select(d => d.Duplicate());
-
-        public static string FriendlyTotalConversionSotFNameForClass(string className, bool returnEmptyIfNotFound = false) => string.IsNullOrWhiteSpace(className) ? string.Empty : GlobalizedApplication.Instance.GetResourceString(className) ?? gameData?.Mods?.FirstOrDefault(i => i.ClassName.Equals(className) && i.IsSotF)?.Description ?? (returnEmptyIfNotFound ? string.Empty : className);
         #endregion
 
         #region Stats Multipliers
@@ -371,16 +323,8 @@ namespace ARK_Server_Manager.Lib
 
         public static IEnumerable<ComboBoxItem> GetBranches() => branches.Select(d => d.Duplicate());
 
-        public static string FriendlyBranchName(string branchName, bool returnEmptyIfNotFound = false) => string.IsNullOrWhiteSpace(branchName) ? string.Empty : GlobalizedApplication.Instance.GetResourceString(branchName) ?? gameData?.Branches?.FirstOrDefault(i => i.BranchName.Equals(branchName) && !i.IsSotF)?.Description ?? (returnEmptyIfNotFound ? string.Empty : branchName);
+        public static string FriendlyBranchName(string branchName, bool returnEmptyIfNotFound = false) => string.IsNullOrWhiteSpace(branchName) ? string.Empty : GlobalizedApplication.Instance.GetResourceString(branchName) ?? gameData?.Branches?.FirstOrDefault(i => i.BranchName.Equals(branchName))?.Description ?? (returnEmptyIfNotFound ? string.Empty : branchName);
 
-        private static ComboBoxItem[] branchesSotF = new[]
-        {
-            new ComboBoxItem { ValueMember="", DisplayMember=FriendlyNameForClass($"Branch_{Config.Default.DefaultServerBranchName}") },
-        };
-
-        public static IEnumerable<ComboBoxItem> GetBranchesSotF() => branchesSotF.Select(d => d.Duplicate());
-
-        public static string FriendlyBranchSotFName(string branchName, bool returnEmptyIfNotFound = false) => string.IsNullOrWhiteSpace(branchName) ? string.Empty : GlobalizedApplication.Instance.GetResourceString(branchName) ?? gameData?.Branches?.FirstOrDefault(i => i.BranchName.Equals(branchName) && i.IsSotF)?.Description ?? (returnEmptyIfNotFound ? string.Empty : branchName);
         #endregion
     }
 }

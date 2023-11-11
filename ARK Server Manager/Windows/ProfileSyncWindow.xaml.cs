@@ -193,9 +193,7 @@ namespace ARK_Server_Manager
                 ProfileSections.Add(new ProfileSection() { Selected = false, Section = ServerProfileCategory.SupplyCrateOverrides, SectionName = _globalizer.GetResourceString("ServerSettings_SupplyCrateOverridesLabel") });
             if (Config.Default.SectionPGMEnabled)
                 ProfileSections.Add(new ProfileSection() { Selected = false, Section = ServerProfileCategory.PGM, SectionName = _globalizer.GetResourceString("ServerSettings_PGMLabel") });
-            if (Config.Default.SectionSOTFEnabled)
-                ProfileSections.Add(new ProfileSection() { Selected = false, Section = ServerProfileCategory.SOTF, SectionName = _globalizer.GetResourceString("ServerSettings_SOTFLabel") });
-        }
+		}
 
         private void PerformProfileSync()
         {

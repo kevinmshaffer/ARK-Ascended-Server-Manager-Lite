@@ -46,14 +46,12 @@ namespace ARK_Server_Manager
         StructuresSection,
         EngramsSection,
         CustomLevelsSection,
-        SOTFSection,
         PGMSection,
         MapSpawnerOverridesSection,
         CraftingOverridesSection,
         SupplyCrateOverridesSection,
 
         // Properties
-        MapNameTotalConversionProperty,
         BanListProperty,
 
         PlayerMaxXpProperty,
@@ -85,7 +83,6 @@ namespace ARK_Server_Manager
         public static readonly DependencyProperty BasePrimalItemListProperty = DependencyProperty.Register(nameof(BasePrimalItemList), typeof(ComboBoxItemList), typeof(ServerSettingsControl), new PropertyMetadata(null));
         public static readonly DependencyProperty BaseSupplyCrateListProperty = DependencyProperty.Register(nameof(BaseSupplyCrateList), typeof(ComboBoxItemList), typeof(ServerSettingsControl), new PropertyMetadata(null));
         public static readonly DependencyProperty BaseGameMapsProperty = DependencyProperty.Register(nameof(BaseGameMaps), typeof(ComboBoxItemList), typeof(ServerSettingsControl), new PropertyMetadata(null));
-        public static readonly DependencyProperty BaseTotalConversionsProperty = DependencyProperty.Register(nameof(BaseTotalConversions), typeof(ComboBoxItemList), typeof(ServerSettingsControl), new PropertyMetadata(null));
         public static readonly DependencyProperty BaseBranchesProperty = DependencyProperty.Register(nameof(BaseBranches), typeof(ComboBoxItemList), typeof(ServerSettingsControl), new PropertyMetadata(null));
         public static readonly DependencyProperty CurrentConfigProperty = DependencyProperty.Register(nameof(CurrentConfig), typeof(Config), typeof(ServerSettingsControl));
         public static readonly DependencyProperty IsAdministratorProperty = DependencyProperty.Register(nameof(IsAdministrator), typeof(bool), typeof(ServerSettingsControl), new PropertyMetadata(false));
@@ -146,12 +143,6 @@ namespace ARK_Server_Manager
         {
             get { return (ComboBoxItemList)GetValue(BaseGameMapsProperty); }
             set { SetValue(BaseGameMapsProperty, value); }
-        }
-
-        public ComboBoxItemList BaseTotalConversions
-        {
-            get { return (ComboBoxItemList)GetValue(BaseTotalConversionsProperty); }
-            set { SetValue(BaseTotalConversionsProperty, value); }
         }
 
         public ComboBoxItemList BaseBranches
@@ -279,7 +270,6 @@ namespace ARK_Server_Manager
             this.BasePrimalItemList = new ComboBoxItemList();
             this.BaseSupplyCrateList = new ComboBoxItemList();
             this.BaseGameMaps = new ComboBoxItemList();
-            this.BaseTotalConversions = new ComboBoxItemList();
             this.BaseBranches = new ComboBoxItemList();
 
             // hook into the language change event
@@ -306,7 +296,6 @@ namespace ARK_Server_Manager
                         ssc.RefreshBasePrimalItemList();
                         ssc.RefreshBaseSupplyCrateList();
                         ssc.RefreshBaseGameMapsList();
-                        ssc.RefreshBaseTotalConversionsList();
                         ssc.RefreshBaseBranchesList();
                         ssc.LoadServerFiles();
                     }).DoNotWait();
@@ -325,7 +314,6 @@ namespace ARK_Server_Manager
             this.RefreshBasePrimalItemList();
             this.RefreshBaseSupplyCrateList();
             this.RefreshBaseGameMapsList();
-            this.RefreshBaseTotalConversionsList();
             this.RefreshBaseBranchesList();
 
             this.HarvestResourceItemAmountClassMultipliersListBox.Items.Refresh();
@@ -340,25 +328,6 @@ namespace ARK_Server_Manager
 
             if (sender is Window)
                 ((Window)sender).Closed -= Window_Closed;
-
-            if (sender is ShutdownWindow)
-                this.Runtime?.ResetModCheckTimer();
-
-            if (sender is ModDetailsWindow)
-            {
-                ((ModDetailsWindow)sender).SavePerformed -= ModDetailsWindow_SavePerformed;
-                RefreshBaseGameMapsList();
-                RefreshBaseTotalConversionsList();
-            }
-        }
-
-        private void ModDetailsWindow_SavePerformed(object sender, ProfileEventArgs e)
-        {
-            if (sender is ModDetailsWindow && Equals(e.Profile, Settings))
-            {
-                RefreshBaseGameMapsList();
-                RefreshBaseTotalConversionsList();
-            }
         }
 
         private async void Start_Click(object sender, RoutedEventArgs e)
@@ -423,7 +392,7 @@ namespace ARK_Server_Manager
 
                             if (Config.Default.ServerUpdate_OnServerStart)
                             {
-                                if (!await UpdateServer(false, true, Config.Default.ServerUpdate_UpdateModsWhenUpdatingServer, true))
+                                if (!await UpdateServer(false, true, true))
                                 {
                                     if (MessageBox.Show("There was a problem while performing the server update. This may leave your server in a incomplete state.\r\n\r\nDo you want to continue with the server start, this could cause problems?", "Server Update", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
                                         return;
@@ -486,23 +455,7 @@ namespace ARK_Server_Manager
             }
 
             this.Settings.Save(false, false, null);
-            await UpdateServer(true, true, Config.Default.ServerUpdate_UpdateModsWhenUpdatingServer, false);
-        }
-
-        private async void ModUpgrade_Click(object sender, RoutedEventArgs e)
-        {
-            switch (this.Runtime.Status)
-            {
-                case ServerRuntime.ServerStatus.Stopped:
-                case ServerRuntime.ServerStatus.Uninstalled:
-                    break;
-
-                default:
-                    return;
-            }
-
-            this.Settings.Save(false, false, null);
-            await UpdateServer(true, false, true, false);
+            await UpdateServer(true, true, false);
         }
 
         private void OpenRCON_Click(object sender, RoutedEventArgs e)
@@ -531,31 +484,9 @@ namespace ARK_Server_Manager
             window.Focus();
         }
 
-        private void OpenModDetails_Click(object sender, RoutedEventArgs e)
-        {
-            var window = new ModDetailsWindow(this.Server.Profile);
-            window.Owner = Window.GetWindow(this);
-            window.Closed += Window_Closed;
-            window.SavePerformed += ModDetailsWindow_SavePerformed;
-            window.Show();
-            window.Focus();
-        }
-
-        private void HelpSOTF_Click(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(Config.Default.ArkSotfUrl))
-                return;
-
-            Process.Start(Config.Default.ArkSotfUrl);
-        }
-
         private void PatchNotes_Click(object sender, RoutedEventArgs e)
         {
-            var url = string.Empty;
-            if (Settings.SOTF_Enabled)
-                url =Config.Default.ArkSotF_PatchNotesUrl;
-            else
-                url = Config.Default.ArkSE_PatchNotesUrl;
+            var url = Config.Default.ArkSE_PatchNotesUrl;
 
             if (string.IsNullOrWhiteSpace(url))
                 return;
@@ -609,19 +540,6 @@ namespace ARK_Server_Manager
                 file = Path.Combine(this.Settings.InstallDirectory, "version.txt");
                 if (File.Exists(file)) files.Add(file);
 
-                // <server>\ShooterGame\Content\Mods
-                var folder = Path.Combine(this.Settings.InstallDirectory, Config.Default.ServerModsRelativePath);
-                var dirInfo = new DirectoryInfo(folder);
-                if (dirInfo.Exists)
-                {
-                    files.AddRange(dirInfo.GetFiles("*.mod").Select(modFile => modFile.FullName));
-                    foreach (var modFolder in dirInfo.GetDirectories())
-                    {
-                        file = Path.Combine(modFolder.FullName, Config.Default.LastUpdatedTimeFile);
-                        if (File.Exists(file)) files.Add(file);
-                    }
-                }
-
                 // <server>\ShooterGame\Saved\Config\WindowsServer
                 file = Path.Combine(this.Settings.InstallDirectory, Config.Default.ServerConfigRelativePath, "Game.ini");
                 if (File.Exists(file))
@@ -656,8 +574,8 @@ namespace ARK_Server_Manager
                 //}
 
                 // Logs
-                folder = Path.Combine(Config.Default.DataDir, Config.Default.LogsDir, ServerApp.LOGPREFIX_AUTOBACKUP);
-                dirInfo = new DirectoryInfo(folder);
+                var folder = Path.Combine(Config.Default.DataDir, Config.Default.LogsDir, ServerApp.LOGPREFIX_AUTOBACKUP);
+                var dirInfo = new DirectoryInfo(folder);
                 if (dirInfo.Exists)
                 {
                     files.AddRange(dirInfo.GetFiles("*.log").Where(f => f.LastWriteTime > DateTime.Today.AddDays(-MAX_DAYS)).Select(logFile => logFile.FullName));
@@ -702,29 +620,15 @@ namespace ARK_Server_Manager
                     }
                 }
 
-                // <data folder>\SteamCMD\steamapps\workshop\content\<app id>
-                if (this.Settings.SOTF_Enabled)
-                    folder = Path.Combine(Config.Default.DataDir, Config.Default.SteamCmdDir, Config.Default.ArkSteamWorkshopFolderRelativePath_SotF);
-                else
-                    folder = Path.Combine(Config.Default.DataDir, Config.Default.SteamCmdDir, Config.Default.ArkSteamWorkshopFolderRelativePath);
-                if (Directory.Exists(folder))
+                // <server cache>
+                if (!string.IsNullOrWhiteSpace(Config.Default.AutoUpdate_CacheDir))
                 {
-                    foreach (var modFolder in Directory.GetDirectories(folder))
-                    {
-                        file = Path.Combine(modFolder, Config.Default.LastUpdatedTimeFile);
-                        if (File.Exists(file)) files.Add(file);
-                    }
-                }
-
-                if (!this.Settings.SOTF_Enabled)
-                {
-                    // <server cache>
-                    if (!string.IsNullOrWhiteSpace(Config.Default.AutoUpdate_CacheDir))
-                    {
-                        var branchName = string.IsNullOrWhiteSpace(this.Settings.BranchName) ? Config.Default.DefaultServerBranchName : this.Settings.BranchName;
-                        file = IOUtils.NormalizePath(Path.Combine(Config.Default.AutoUpdate_CacheDir, $"{Config.Default.ServerBranchFolderPrefix}{branchName}", Config.Default.LastUpdatedTimeFile));
-                        if (File.Exists(file)) files.Add(file);
-                    }
+                    var branchName = string.IsNullOrWhiteSpace(this.Settings.BranchName) ? Config.Default.DefaultServerBranchName : this.Settings.BranchName;
+                    file = IOUtils.NormalizePath(Path.Combine(Config.Default.AutoUpdate_CacheDir, $"{Config.Default.ServerBranchFolderPrefix}{branchName}", Config.Default.LastUpdatedTimeFile));
+					if (File.Exists(file))
+					{
+						files.Add(file);
+					}
                 }
 
                 var comment = new StringBuilder();
@@ -741,7 +645,6 @@ namespace ARK_Server_Manager
                 comment.AppendLine($"Config Directory: {Config.Default.ConfigDirectory}");
                 comment.AppendLine($"Server Directory: {this.Settings.InstallDirectory}");
 
-                comment.AppendLine($"SotF Server: {this.Settings.SOTF_Enabled}");
                 comment.AppendLine($"PGM Server: {this.Settings.PGM_Enabled}");
 
                 comment.AppendLine($"IsAdministrator: {SecurityUtils.IsAdministrator()}");
@@ -768,10 +671,6 @@ namespace ARK_Server_Manager
 
                 comment.AppendLine($"ServerShutdown_EnableWorldSave: {Config.Default.ServerShutdown_EnableWorldSave}");
                 comment.AppendLine($"ServerShutdown_GracePeriod: {Config.Default.ServerShutdown_GracePeriod}");
-                comment.AppendLine($"ServerUpdate_UpdateModsWhenUpdatingServer: {Config.Default.ServerUpdate_UpdateModsWhenUpdatingServer}");
-                comment.AppendLine($"ServerUpdate_ForceCopyMods: {Config.Default.ServerUpdate_ForceCopyMods}");
-                comment.AppendLine($"ServerUpdate_ForceUpdateMods: {Config.Default.ServerUpdate_ForceUpdateMods}");
-                comment.AppendLine($"ServerUpdate_ForceUpdateModsIfNoSteamInfo: {Config.Default.ServerUpdate_ForceUpdateModsIfNoSteamInfo}");
                 comment.AppendLine($"ServerUpdate_OnServerStart: {Config.Default.ServerUpdate_OnServerStart}");
                 comment.AppendLine($"EmailNotify_AutoRestart: {Config.Default.EmailNotify_AutoRestart}");
                 comment.AppendLine($"EmailNotify_AutoBackup: {Config.Default.EmailNotify_AutoBackup}");
@@ -1030,11 +929,6 @@ namespace ARK_Server_Manager
             expression?.UpdateSource();
         }
 
-        private void OutOfDateModUpdate_Click(object sender, RoutedEventArgs e)
-        {
-            this.Runtime?.ResetModCheckTimer();
-        }
-
         private void ServerName_SourceUpdated(object sender, DataTransferEventArgs e)
         {
             Settings.ValidateServerName();
@@ -1051,22 +945,6 @@ namespace ARK_Server_Manager
             window.Owner = Window.GetWindow(this);
             window.Closed += Window_Closed;
             window.ShowDialog();
-        }
-
-        private void EnableSOTFCheckbox_SourceUpdated(object sender, DataTransferEventArgs e)
-        {
-            var checkBox = sender as CheckBox;
-            if (checkBox == null || checkBox != EnableSOTFCheckbox)
-                return;
-
-            this.Settings.ServerMap = Config.Default.DefaultServerMap;
-            this.Settings.TotalConversionModId = string.Empty;
-            this.Settings.ServerModIds = string.Empty;
-            this.Settings.BranchName = string.Empty;
-            this.Settings.BranchPassword = string.Empty;
-            RefreshBaseGameMapsList();
-            RefreshBaseTotalConversionsList();
-            RefreshBaseBranchesList();
         }
 
         #region Dinos
@@ -2654,19 +2532,9 @@ namespace ARK_Server_Manager
         {
             var newList = new ComboBoxItemList();
 
-            if (this.Settings.SOTF_Enabled)
+            foreach (var gameMap in GameData.GetGameMaps())
             {
-                foreach (var gameMap in GameData.GetGameMapsSotF())
-                {
-                    newList.Add(gameMap);
-                }
-            }
-            else
-            {
-                foreach (var gameMap in GameData.GetGameMaps())
-                {
-                    newList.Add(gameMap);
-                }
+                newList.Add(gameMap);
             }
 
             if (!string.IsNullOrWhiteSpace(this.Settings.ServerMap))
@@ -2675,7 +2543,7 @@ namespace ARK_Server_Manager
                 {
                     newList.Add(new Lib.ViewModel.ComboBoxItem
                     {
-                        DisplayMember = this.Settings.SOTF_Enabled ? GameData.FriendlyMapSotFNameForClass(this.Settings.ServerMap) : GameData.FriendlyMapNameForClass(this.Settings.ServerMap),
+                        DisplayMember = GameData.FriendlyMapNameForClass(this.Settings.ServerMap),
                         ValueMember = this.Settings.ServerMap,
                     });
                 }
@@ -2685,58 +2553,13 @@ namespace ARK_Server_Manager
             this.GameMapComboBox.SelectedValue = this.Settings.ServerMap;
         }
 
-        public void RefreshBaseTotalConversionsList()
-        {
-            var newList = new ComboBoxItemList();
-
-            if (this.Settings.SOTF_Enabled)
-            {
-                foreach (var gameMap in GameData.GetTotalConversionsSotF())
-                {
-                    newList.Add(gameMap);
-                }
-            }
-            else
-            {
-                foreach (var item in GameData.GetTotalConversions())
-                {
-                    newList.Add(item);
-                }
-            }
-
-            if (!string.IsNullOrWhiteSpace(this.Settings.TotalConversionModId))
-            {
-                if (!newList.Any(m => m.ValueMember.Equals(this.Settings.TotalConversionModId, StringComparison.OrdinalIgnoreCase)))
-                {
-                    newList.Add(new Lib.ViewModel.ComboBoxItem
-                    {
-                        DisplayMember = this.Settings.SOTF_Enabled ? GameData.FriendlyTotalConversionSotFNameForClass(this.Settings.TotalConversionModId) : GameData.FriendlyTotalConversionNameForClass(this.Settings.TotalConversionModId),
-                        ValueMember = this.Settings.TotalConversionModId,
-                    });
-                }
-            }
-
-            this.BaseTotalConversions = newList;
-            this.TotalConversionComboBox.SelectedValue = this.Settings.TotalConversionModId;
-        }
-
         public void RefreshBaseBranchesList()
         {
             var newList = new ComboBoxItemList();
 
-            if (this.Settings.SOTF_Enabled)
+            foreach (var item in GameData.GetBranches())
             {
-                foreach (var item in GameData.GetBranchesSotF())
-                {
-                    newList.Add(item);
-                }
-            }
-            else
-            {
-                foreach (var item in GameData.GetBranches())
-                {
-                    newList.Add(item);
-                }
+                newList.Add(item);
             }
 
             if (!string.IsNullOrWhiteSpace(this.Settings.BranchName))
@@ -2745,7 +2568,7 @@ namespace ARK_Server_Manager
                 {
                     newList.Add(new Lib.ViewModel.ComboBoxItem
                     {
-                        DisplayMember = this.Settings.SOTF_Enabled ? GameData.FriendlyBranchSotFName(this.Settings.BranchName) : GameData.FriendlyBranchName(this.Settings.BranchName),
+                        DisplayMember = GameData.FriendlyBranchName(this.Settings.BranchName),
                         ValueMember = this.Settings.BranchName,
                     });
                 }
@@ -2799,10 +2622,9 @@ namespace ARK_Server_Manager
                 return new RelayCommand<ServerSettingsResetAction>(
                     execute: (action) =>
                     {
-                        if (action != ServerSettingsResetAction.MapNameTotalConversionProperty)
-                        {
-                            if (MessageBox.Show(_globalizer.GetResourceString("ServerSettings_ResetLabel"), _globalizer.GetResourceString("ServerSettings_ResetTitle"), MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
-                                return;
+                        if (MessageBox.Show(_globalizer.GetResourceString("ServerSettings_ResetLabel"), _globalizer.GetResourceString("ServerSettings_ResetTitle"), MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+						{
+                            return;
                         }
 
                         switch (action)
@@ -2811,7 +2633,6 @@ namespace ARK_Server_Manager
                             case ServerSettingsResetAction.AdministrationSection:
                                 this.Settings.ResetAdministrationSection();
                                 RefreshBaseGameMapsList();
-                                RefreshBaseTotalConversionsList();
                                 RefreshBaseBranchesList();
                                 break;
 
@@ -2863,10 +2684,6 @@ namespace ARK_Server_Manager
                                 this.Settings.ResetRulesSection();
                                 break;
 
-                            case ServerSettingsResetAction.SOTFSection:
-                                this.Settings.ResetSOTFSection();
-                                break;
-
                             case ServerSettingsResetAction.StructuresSection:
                                 this.Settings.ResetStructuresSection();
                                 break;
@@ -2878,27 +2695,6 @@ namespace ARK_Server_Manager
                                 break;
 
                             // Properties
-                            case ServerSettingsResetAction.MapNameTotalConversionProperty:
-                                // set the map name to the ARK default.
-                                var mapName = Config.Default.DefaultServerMap;
-
-                                // check if we are running an official total conversion mod.
-                                if (!this.Settings.TotalConversionModId.Equals(ModUtils.MODID_PRIMITIVEPLUS))
-                                {
-                                    // we need to read the mod file and retreive the map name
-                                    mapName = ModUtils.GetMapName(this.Settings.InstallDirectory, this.Settings.TotalConversionModId);
-                                    if (string.IsNullOrWhiteSpace(mapName))
-                                    {
-                                        MessageBox.Show("The map name could not be found, please check the total conversion mod id is correct and the mod has been downloaded.", "Find Total Conversion Map Name Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                                        break;
-                                    }
-                                }
-
-                                this.Settings.ServerMap = mapName;
-
-                                MessageBox.Show("The map name has been updated.", "Find Total Conversion Map Name", MessageBoxButton.OK, MessageBoxImage.Information);
-                                break;
-
                             case ServerSettingsResetAction.BanListProperty:
                                 this.Settings.ResetBanlist();
                                 break;
@@ -2972,29 +2768,6 @@ namespace ARK_Server_Manager
                             var server = parameter as Server;
                             if (server != null)
                             {
-                                if (server.Profile.EnableAutoShutdown1 || server.Profile.EnableAutoShutdown2)
-                                {
-                                    if (server.Profile.SOTF_Enabled)
-                                    {
-                                        MessageBox.Show(_globalizer.GetResourceString("ServerSettings_Save_AutoRestart_SotF_ErrorLabel"), _globalizer.GetResourceString("ServerSettings_Save_AutoRestart_SotF_ErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Warning);
-                                        server.Profile.EnableAutoShutdown1 = false;
-                                        server.Profile.RestartAfterShutdown1 = true;
-                                        server.Profile.EnableAutoShutdown2 = false;
-                                        server.Profile.RestartAfterShutdown2 = true;
-                                        server.Profile.AutoRestartIfShutdown = false;
-                                    }
-                                }
-
-                                if (server.Profile.EnableAutoUpdate)
-                                {
-                                    if (server.Profile.SOTF_Enabled)
-                                    {
-                                        MessageBox.Show(_globalizer.GetResourceString("ServerSettings_Save_AutoUpdate_SotF_ErrorLabel"), _globalizer.GetResourceString("ServerSettings_Save_AutoUpdate_SotF_ErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Warning);
-                                        server.Profile.EnableAutoUpdate = false;
-                                        server.Profile.AutoRestartIfShutdown = false;
-                                    }
-                                }
-
                                 server.Profile.Save(false, false, (p, m, n) => { OverlayMessage.Content = m; });
 
                                 RefreshBaseDinoList();
@@ -3002,7 +2775,6 @@ namespace ARK_Server_Manager
                                 RefreshBasePrimalItemList();
                                 RefreshBaseSupplyCrateList();
                                 RefreshBaseGameMapsList();
-                                RefreshBaseTotalConversionsList();
                                 RefreshBaseBranchesList();
 
                                 OverlayMessage.Content = _globalizer.GetResourceString("ServerSettings_OverlayMessage_PermissionsLabel");
@@ -3040,7 +2812,7 @@ namespace ARK_Server_Manager
             }
         }
 
-        private async Task<bool> UpdateServer(bool establishLock, bool updateServer, bool updateMods, bool closeProgressWindow)
+        private async Task<bool> UpdateServer(bool establishLock, bool updateServer, bool closeProgressWindow)
         {
             if (_upgradeCancellationSource != null)
                 return false;
@@ -3070,7 +2842,7 @@ namespace ARK_Server_Manager
                     await Task.Delay(1000);
 
                     var branch = new ServerBranchSnapshot() { BranchName = this.Server.Profile.BranchName, BranchPassword = this.Server.Profile.BranchPassword };
-                    return await this.Server.UpgradeAsync(_upgradeCancellationSource.Token, updateServer, branch, true, updateMods, (p, m, n) => { TaskUtils.RunOnUIThreadAsync(() => { window?.AddMessage(m, n); }).DoNotWait(); });
+                    return await this.Server.UpgradeAsync(_upgradeCancellationSource.Token, updateServer, branch, true, (p, m, n) => { TaskUtils.RunOnUIThreadAsync(() => { window?.AddMessage(m, n); }).DoNotWait(); });
                 }
                 else
                 {

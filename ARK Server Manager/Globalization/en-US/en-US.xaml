@@ -266,8 +266,6 @@
     <sys:String x:Key="GlobalSettings_CustomOverrideSupplyCrateTooltip">If enabled, the supply crate overrides will be managed by ASM.</sys:String>
     <sys:String x:Key="GlobalSettings_CustomOverridePGMLabel">Enable PGM Ark Settings</sys:String>
     <sys:String x:Key="GlobalSettings_CustomOverridePGMTooltip">If enabled, the PGM settings will be managed by ASM.</sys:String>
-    <sys:String x:Key="GlobalSettings_CustomOverrideSOTFLabel">Enable SotF Settings</sys:String>
-    <sys:String x:Key="GlobalSettings_CustomOverrideSOTFTooltip">If enabled, the SotF settings will be managed by ASM.</sys:String>
     <sys:String x:Key="GlobalSettings_CustomOverrideOptionsWarningLabel">WARNING: While any of these options are disabled, ASM will not read or write the associated overrides settings. Re-enabling any of these options will cause ALL existing associated overrides to be removed from the config file.</sys:String>
     <sys:String x:Key="GlobalSettings_ServerStartupLabel">Server Startup Options</sys:String>
     <sys:String x:Key="GlobalSettings_CustomLevelXPIncreasePlayerLabel">Player Level Increase:</sys:String>
@@ -441,18 +439,14 @@
     <sys:String x:Key="MainWindow_NewProfileTooltip">Create a new server profile.</sys:String>
     <sys:String x:Key="MainWindow_CloseProfileTooltip">Delete the server profile.</sys:String>
     <sys:String x:Key="MainWindow_VersionLabel">Version:</sys:String>
-    <sys:String x:Key="MainWindow_BetaVersionLabel">Beta Version:</sys:String>
     <sys:String x:Key="MainWindow_MyIpLabel">My Public IP:</sys:String>
     <sys:String x:Key="MainWindow_MyIpTooltip">The IP address players use to connect to your server.</sys:String>
     <sys:String x:Key="MainWindow_MyIpError">Invalid IP address or hostname</sys:String>
     <sys:String x:Key="MainWindow_RefreshMyIpTooltip">Attempt to determine your current public IP</sys:String>
-    <sys:String x:Key="MainWindow_DonateTooltip">Like what you see and want to show your appreciation?  Donate here!</sys:String>
     <sys:String x:Key="MainWindow_SteamCMDTooltip">Reinstall SteamCMD from the internet.</sys:String>
     <sys:String x:Key="MainWindow_OpenRCONTooltip">Open remote console</sys:String>
     <sys:String x:Key="MainWindow_OpenLogFolderTooltip">Open ASM logs folder</sys:String>
     <sys:String x:Key="MainWindow_OpenSettingsTooltip">Open Global Settings</sys:String>
-    <sys:String x:Key="MainWindow_OpenHelpTooltip">Open Help</sys:String>
-    <sys:String x:Key="MainWindow_UpdateToLabelFormat">Upgrade to {0} now!</sys:String>
     <sys:String x:Key="MainWindow_TaskStatusLabel">Task Status</sys:String>
     <sys:String x:Key="MainWindow_TaskAdminErrorTitle">Requires Administration Permissions</sys:String>
     <sys:String x:Key="MainWindow_TaskAdminErrorLabel">This function cannot be performed as it requires administration permissions.</sys:String>
@@ -482,13 +476,6 @@
     <sys:String x:Key="MainWindow_ProfileLoad_FailedLabel">The profile at {0} failed to load. The error was: {1}\r\n{2}</sys:String>
     <sys:String x:Key="MainWindow_ProfileDelete_Title">Delete Profile {0}?</sys:String>
     <sys:String x:Key="MainWindow_ProfileDelete_Label">Are you sure you want to delete this profile?\r\n\r\nNOTE: This will only delete the profile, not the installation directory, save games or settings files contained therein.</sys:String>
-    <sys:String x:Key="MainWindow_Donate_Title">Make a donation?</sys:String>
-    <sys:String x:Key="MainWindow_Donate_Label">Ark Server Manager is an open-source project, provided completely free of charge. You can still donate if you would like; however you are under no obligation. If you wish to donate, your browser will open to PayPal's website where you may donate as little or as much as you like. Would you like to donate now?</sys:String>
-    <sys:String x:Key="MainWindow_Upgrade_Title">Upgrade available</sys:String>
-    <sys:String x:Key="MainWindow_Upgrade_Label">Version {0} is now available. To upgrade the application must close. Close and upgrade now?</sys:String>
-    <sys:String x:Key="MainWindow_OverlayMessage_UpgradeLabel">Starting Upgrade...</sys:String>
-    <sys:String x:Key="MainWindow_Upgrade_FailedTitle">Upgrade failed!</sys:String>
-    <sys:String x:Key="MainWindow_Upgrade_FailedLabel">Unable to run the update process. Please report this.\r\nException: {0}\r\nStacktrace: {1}</sys:String>
     <sys:String x:Key="MainWindow_SteamCmd_Title">Reinstall SteamCMD</sys:String>
     <sys:String x:Key="MainWindow_SteamCmd_Label">If you proceed the entire SteamCMD folder will be removed including all mod cache downloads.\r\nAre you sure you want to reinstall SteamCMD?</sys:String>
     <sys:String x:Key="MainWindow_SteamCmd_FailedTitle">Reinstall SteamCMD Error</sys:String>
@@ -617,10 +604,6 @@
     <sys:String x:Key="ServerSettings_Save_ServerCache_ErrorTitle">Server cache not configured</sys:String>
     <sys:String x:Key="ServerSettings_Save_ServerCache_ErrorLabel1">Auto-updates is enabled but the Server Cache update is not yet configured. The server cache downloads server updates in the background automatically to enable faster server updates, particularly when there are multiple servers. You must first configure the cache, then you may enable automatic updating. Would you like to configure the cache now?</sys:String>
     <sys:String x:Key="ServerSettings_Save_ServerCache_ErrorLabel2">The server cache was not configured. Disabling auto-updates.</sys:String>
-    <sys:String x:Key="ServerSettings_Save_AutoRestart_SotF_ErrorTitle">SotF Not Compatible</sys:String>
-    <sys:String x:Key="ServerSettings_Save_AutoRestart_SotF_ErrorLabel">Auto-restarts are enabled but is not compatible with SotF. Disabling auto-restarts.</sys:String>
-    <sys:String x:Key="ServerSettings_Save_AutoUpdate_SotF_ErrorTitle">SotF Not Compatible</sys:String>
-    <sys:String x:Key="ServerSettings_Save_AutoUpdate_SotF_ErrorLabel">Auto-updates are enabled but is not compatible with SotF. Disabling auto-updates.</sys:String>
     <sys:String x:Key="ServerSettings_Save_UpdatePermissions_ErrorTitle">Update directory permissions</sys:String>
     <sys:String x:Key="ServerSettings_Save_UpdatePermissions_ErrorLabel">Failed to update directory permissions. Ensure you have administrator rights on this machine and try again. If the problem persists, please report this as a bug.</sys:String>
     <sys:String x:Key="ServerSettings_Save_UpdateSchedule_ErrorTitle">Update schedule failed</sys:String>
@@ -709,21 +692,14 @@
     <sys:String x:Key="ServerSettings_ClusterDirOverrideTooltip">If enabled, allows you to use a common cross-server storage location that functions between multiple servers running on the same machine. Uses the clusters directory in the ASM Data directory.</sys:String>
 
     <sys:String x:Key="ServerSettings_MapsAndModsLabel">Maps and Mods</sys:String>
-    <sys:String x:Key="ServerSettings_MapsAndModsSOTFLabel">Survival of the Fittest enabled - Maps and Mods disabled</sys:String>
     <sys:String x:Key="ServerSettings_MapPathLabel">Map Name or Map Mod Path:</sys:String>
     <sys:String x:Key="ServerSettings_MapPathTooltip">The standard map name (e.g. TheIsland, TheCenter), or the local mod path (e.g. /Game/Mods/123456789/ModMapName) if your mod has a map in it.</sys:String>
-    <sys:String x:Key="ServerSettings_TotalConversionLabel">Total Conversion ID:</sys:String>
-    <sys:String x:Key="ServerSettings_TotalConversionTooltip">The id of the total conversion mod.</sys:String>
     <sys:String x:Key="ServerSettings_ResetMapNameIslandTooltip">Reset map name to the Island map</sys:String>
     <sys:String x:Key="ServerSettings_ResetMapNameCenterTooltip">Reset map name to the Center map</sys:String>
     <sys:String x:Key="ServerSettings_ResetMapNameScorchedEarthTooltip">Reset map name to the Scorched Earth map</sys:String>
     <sys:String x:Key="ServerSettings_ResetMapNameRagnarokTooltip">Reset map name to the Ragnarok map</sys:String>
-    <sys:String x:Key="ServerSettings_FindTotalConversionMapNameTooltip">Read total conversion mod to find the map name</sys:String>
-    <sys:String x:Key="ServerSettings_ResetTotalConversionPrimitivePlusTooltip">Reset total conversion to Primitive +</sys:String>
     <sys:String x:Key="ServerSettings_ModIdsLabel">Mod IDs:</sys:String>
     <sys:String x:Key="ServerSettings_ModIdsTooltip">A comma-separated list of mod ids, in the order in which they should be applied.</sys:String>
-    <sys:String x:Key="ServerSettings_ModDetailsTooltip">View the mod details.</sys:String>
-    <sys:String x:Key="ServerSettings_ModUpgradeTooltip">Upgrade to the latest version of the mods that is currently available to download.</sys:String>
 
     <sys:String x:Key="ServerSettings_EnableExtinctionEventLabel">Enable Extinction Event</sys:String>
     <sys:String x:Key="ServerSettings_EnableExtinctionEventTooltip">If enabled, the extinction countdown will be turned on. To reset the countdown, disable, save the profile and then enable.</sys:String>
@@ -1500,46 +1476,6 @@
     <sys:String x:Key="ServerSettings_ServerFilesExclusiveNameColumnLabel">Steam Name</sys:String>
     <sys:String x:Key="ServerSettings_EnableExclusiveJoinLabel">Enable Exclusive Join</sys:String>
     <sys:String x:Key="ServerSettings_EnableExclusiveJoinTooltip">If enabled, only players in the Exclusive Join list will be able to log into the server.</sys:String>
-
-    <!-- Server Settings - Survival of the Fittest -->
-    <sys:String x:Key="ServerSettings_SOTFLabel">Survival of the Fittest</sys:String>
-    <sys:String x:Key="ServerSettings_EnableSOTFLabel">Enable Survival of the Fittest</sys:String>
-    <sys:String x:Key="ServerSettings_EnableSOTFTooltip">If enabled, configures the server as a 'Survival of the Fittest' server.</sys:String>
-    <sys:String x:Key="ServerSettings_DisableDeathSpectatorLabel">Disable Death Spectator</sys:String>
-    <sys:String x:Key="ServerSettings_DisableDeathSpectatorTooltip">If enabled, players cannot be spectators after they die.</sys:String>
-    <sys:String x:Key="ServerSettings_OnlyAdminRejoinSpectatorLabel">Only Admin Rejoin As Spectator</sys:String>
-    <sys:String x:Key="ServerSettings_OnlyAdminRejoinSpectatorTooltip">If enabled, only admins can join as spectators once the game has started.</sys:String>
-    <sys:String x:Key="ServerSettings_MaxPlayersInTribeLabel">Max Players in Tribe:</sys:String>
-    <sys:String x:Key="ServerSettings_MaxPlayersInTribeTooltip">The maximum number of players allowed in a tribe.</sys:String>
-    <sys:String x:Key="ServerSettings_TribesRequiredForGameLabel">Tribes Required for Game:</sys:String>
-    <sys:String x:Key="ServerSettings_TribesRequiredForGameTooltip">The number of tribes requires for the game to start.</sys:String>
-    <sys:String x:Key="ServerSettings_RingOfDeathCollapseTimeLabel">Ring of Death Collapse Time:</sys:String>
-    <sys:String x:Key="ServerSettings_RingOfDeathCollapseTimeTooltip">The game length before Sudden Death.</sys:String>
-    <sys:String x:Key="ServerSettings_AutoStartDelayTimeLabel">Auto-start Delay Time:</sys:String>
-    <sys:String x:Key="ServerSettings_AutoStartDelayTimeTooltip">The time after the minimum number of tribes has been achieved before the game starts.</sys:String>
-    <sys:String x:Key="ServerSettings_AutoRestartDelayTimeLabel">Auto-restart Delay Time:</sys:String>
-    <sys:String x:Key="ServerSettings_AutoRestartDelayTimeTooltip">The time after the last game has ended before the new game will start.</sys:String>
-    <sys:String x:Key="ServerSettings_SuddenDeathTimeLabel">Sudden Death Time:</sys:String>
-    <sys:String x:Key="ServerSettings_SuddenDeathTimeTooltip">The amount of time Sudden Death will be in effect until the game is declared a draw.</sys:String>
-    <sys:String x:Key="ServerSettings_EnableOutputGameReportLabel">Output Game Report</sys:String>
-    <sys:String x:Key="ServerSettings_EnableOutputGameReportTooltip">If enabled, generates a timestamped HTML after-action report file at the end of each game in the server's "Saved" directory, as the Official Ranked servers do.</sys:String>
-    <sys:String x:Key="ServerSettings_EnableGamePlayLoggingLabel">Enable Game Play Logging</sys:String>
-    <sys:String x:Key="ServerSettings_EnableGamePlayLoggingTooltip">If enabled, outputs a dated log file to \Saved folder, which will contain a timestamped kill and winners log listing steam id, steam name, character name, etc. Handy for automatic Tournament records.</sys:String>
-    <sys:String x:Key="ServerSettings_SOTFGameOptionsLabel">Game Options</sys:String>
-    <sys:String x:Key="ServerSettings_SOTFNoEventsLabel">No Events</sys:String>
-    <sys:String x:Key="ServerSettings_SOTFNoEventsTooltip">If enabled, will cause no Evolution Events to be automatically triggered. Host can still trigger events manually with 'cheat ce evorain' etc.</sys:String>
-    <sys:String x:Key="ServerSettings_SOTFNoBossesLabel">No Bosses</sys:String>
-    <sys:String x:Key="ServerSettings_SOTFNoBossesTooltip">If enabled, will cause no bosses to be spawned</sys:String>
-    <sys:String x:Key="ServerSettings_SOTFBothBossesLabel">Both Bosses</sys:String>
-    <sys:String x:Key="ServerSettings_SOTFBothBossesTooltip">If enabled and if bosses are used, this will spawn both the Broodmother and the Megapithecus at their respective times.</sys:String>
-    <sys:String x:Key="ServerSettings_SOTFEvoEventIntervalLabel">Evolution Event Interval</sys:String>
-    <sys:String x:Key="ServerSettings_SOTFEvoEventIntervalTooltip">Specifies the interval factor for the Evolution Events. Lower values decrease the time between events, higher values increase the time between events.</sys:String>
-    <sys:String x:Key="ServerSettings_SOTFRingStartTimeLabel">Ring Start Time</sys:String>
-    <sys:String x:Key="ServerSettings_SOTFRingStartTimeTooltip">You can set this to 'pre-advance' the match time (ring of death progress) to a certain time. Lower values decrease the match time and higher values increase the match time.</sys:String>
-
-    <sys:String x:Key="ServerSettings_SOTF_HelpTooltip">Survival of the Fittest is an alternate game to Survival Evolved that uses a different set of server files and changes many of the rules. See the web for more details.</sys:String>
-    <sys:String x:Key="ServerSettings_SOTF_HelpTitle">Go to SotF web page?</sys:String>
-    <sys:String x:Key="ServerSettings_SOTF_HelpLabel">Survival of the Fittest is an alternate game to Survival Evolved that uses a different set of server files and changes many of the rules. See the web for more details.</sys:String>
 
     <!-- Server Settings - Procedurally Generated Arks -->
     <sys:String x:Key="ServerSettings_PGMLabel">Procedurally Generated Arks</sys:String>

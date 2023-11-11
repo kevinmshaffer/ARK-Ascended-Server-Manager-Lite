@@ -9,7 +9,7 @@ namespace ARK_Server_Manager.Lib.ViewModel
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             int unixTimestamp = (int)value;
-            return ModUtils.UnixTimeStampToDateTime(unixTimestamp).ToString();
+            return StringUtils.UnixTimeStampToDateTime(unixTimestamp).ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

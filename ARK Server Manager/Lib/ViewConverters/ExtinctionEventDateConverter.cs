@@ -13,7 +13,7 @@ namespace ARK_Server_Manager.Lib.ViewModel
             if (scaledValue <= 0)
                 return string.Empty;
 
-            var displayValue = ModUtils.UnixTimeStampToDateTime(scaledValue);
+            var displayValue = StringUtils.UnixTimeStampToDateTime(scaledValue);
             return displayValue.ToString(CultureInfo.CurrentCulture);
         }
 

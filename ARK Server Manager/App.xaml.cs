@@ -26,9 +26,7 @@ namespace ARK_Server_Manager
         public const string ARG_AUTOBACKUP = "-ab";
         public const string ARG_AUTOSHUTDOWN1 = "-as1";
         public const string ARG_AUTOSHUTDOWN2 = "-as2";
-        public const string ARG_AUTORESTART = "-ar";
         public const string ARG_AUTOUPDATE = "-au";
-        public const string ARG_BETA = "-beta";
         public const string ARG_RCON = "-rcon";
 
         public new static App Instance
@@ -58,7 +56,6 @@ namespace ARK_Server_Manager
 
             ApplicationStarted = false;
             Args = string.Empty;
-            BetaVersion = false;
 
             AppDomain.CurrentDomain.UnhandledException += ErrorHandling.CurrentDomain_UnhandledException;
             App.Instance = this;
@@ -189,19 +186,6 @@ namespace ARK_Server_Manager
                 _globalizer.StyleManager.SwitchStyle($"{Config.Default.StyleName}.xaml");
 
             Args = string.Join(" ", e.Args);
-
-            // check if we are starting ASM for server restart
-            if (e.Args.Any(a => a.Equals(ARG_BETA)))
-            {
-                BetaVersion = true;
-            }
-
-            // check if we are starting ASM for the old server restart - no longer supported
-            if (e.Args.Any(a => a.StartsWith(ARG_AUTORESTART)))
-            {
-                // just exit
-                Environment.Exit(0);
-            }
 
             // check if we are starting ASM for server shutdown
             if (e.Args.Any(a => a.StartsWith(ARG_AUTOSHUTDOWN1)))

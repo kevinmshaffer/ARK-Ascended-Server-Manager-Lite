@@ -12,7 +12,7 @@ namespace ARK_Server_Manager {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.6.0.0")]
     public sealed partial class Config : global::System.Configuration.ApplicationSettingsBase {
         
         private static Config defaultInstance = ((Config)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Config())));
@@ -82,7 +82,7 @@ namespace ARK_Server_Manager {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("+login anonymous +force_install_dir \"{0}\"  \"+app_update 376030 {1} {2}\" +quit")]
+        [global::System.Configuration.DefaultSettingValueAttribute("+login anonymous +force_install_dir \"{0}\"  \"+app_update {1} {2} {3}\" +quit")]
         public string SteamCmdInstallServerArgsFormat {
             get {
                 return ((string)(this["SteamCmdInstallServerArgsFormat"]));
@@ -136,7 +136,7 @@ namespace ARK_Server_Manager {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ShooterGameServer.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ArkAscendedServer.exe")]
         public string ServerExe {
             get {
                 return ((string)(this["ServerExe"]));
@@ -154,7 +154,7 @@ namespace ARK_Server_Manager {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-nosteamclient -game -server -log")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-nosteamclient")]
         public string ServerCommandLineStandardArgs {
             get {
                 return ((string)(this["ServerCommandLineStandardArgs"]));
@@ -181,7 +181,7 @@ namespace ARK_Server_Manager {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("TheIsland")]
+        [global::System.Configuration.DefaultSettingValueAttribute("TheIsland_WP")]
         public string DefaultServerMap {
             get {
                 return ((string)(this["DefaultServerMap"]));
@@ -202,7 +202,7 @@ namespace ARK_Server_Manager {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Ark Server Manager")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ark Ascended Server Manager Lite")]
         public string DefaultDataDir {
             get {
                 return ((string)(this["DefaultDataDir"]));
@@ -211,7 +211,7 @@ namespace ARK_Server_Manager {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ShooterGameServer")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ArkAscendedServer")]
         public string ServerProcessName {
             get {
                 return ((string)(this["ServerProcessName"]));
@@ -298,24 +298,6 @@ namespace ARK_Server_Manager {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://arkservermanager.s3.amazonaws.com/release/latest.txt")]
-        public string LatestASMVersionUrl {
-            get {
-                return ((string)(this["LatestASMVersionUrl"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1440")]
-        public int UpdateCheckTime {
-            get {
-                return ((int)(this["UpdateCheckTime"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string DefaultSteamAPIKey {
             get {
@@ -377,15 +359,6 @@ namespace ARK_Server_Manager {
             }
             set {
                 this["RCON_AdminName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://arkservermanager.freeforums.net/thread/1194/faq-frequently-asked")]
-        public string HelpUrl {
-            get {
-                return ((string)(this["HelpUrl"]));
             }
         }
         
@@ -559,18 +532,6 @@ namespace ARK_Server_Manager {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SectionSOTFIsExpanded {
-            get {
-                return ((bool)(this["SectionSOTFIsExpanded"]));
-            }
-            set {
-                this["SectionSOTFIsExpanded"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public int CustomLevelXPIncrease_Player {
             get {
@@ -595,15 +556,6 @@ namespace ARK_Server_Manager {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("+login anonymous +force_install_dir \"{0}\"  \"+app_update 445400 {1} {2}\" +quit")]
-        public string SteamCmdInstallServerArgsFormat_SotF {
-            get {
-                return ((string)(this["SteamCmdInstallServerArgsFormat_SotF"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://survivetheark.com/index.php?/forums/forum/5-changelog-patch-notes/")]
         public string ArkSE_PatchNotesUrl {
             get {
@@ -613,28 +565,10 @@ namespace ARK_Server_Manager {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://survivetheark.com/index.php?/forums/forum/9-changelog-patch-notes/")]
-        public string ArkSotF_PatchNotesUrl {
-            get {
-                return ((string)(this["ArkSotF_PatchNotesUrl"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://store.steampowered.com/app/346110/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://store.steampowered.com/app/2399830/")]
         public string ArkSEUrl {
             get {
                 return ((string)(this["ArkSEUrl"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://store.steampowered.com/app/407530/")]
-        public string ArkSotfUrl {
-            get {
-                return ((string)(this["ArkSotfUrl"]));
             }
         }
         
@@ -766,33 +700,6 @@ namespace ARK_Server_Manager {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("+login {0} +workshop_download_item 346110 {1} +quit")]
-        public string SteamCmdInstallModArgsFormat {
-            get {
-                return ((string)(this["SteamCmdInstallModArgsFormat"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("steamapps\\workshop\\content\\346110\\")]
-        public string ArkSteamWorkshopFolderRelativePath {
-            get {
-                return ((string)(this["ArkSteamWorkshopFolderRelativePath"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ShooterGame\\Content\\Mods")]
-        public string ServerModsRelativePath {
-            get {
-                return ((string)(this["ServerModsRelativePath"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -802,42 +709,6 @@ namespace ARK_Server_Manager {
             }
             set {
                 this["AutoUpdate_CacheDir"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ServerUpdate_UpdateModsWhenUpdatingServer {
-            get {
-                return ((bool)(this["ServerUpdate_UpdateModsWhenUpdatingServer"]));
-            }
-            set {
-                this["ServerUpdate_UpdateModsWhenUpdatingServer"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ServerUpdate_ForceUpdateMods {
-            get {
-                return ((bool)(this["ServerUpdate_ForceUpdateMods"]));
-            }
-            set {
-                this["ServerUpdate_ForceUpdateMods"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ServerUpdate_ForceCopyMods {
-            get {
-                return ((bool)(this["ServerUpdate_ForceCopyMods"]));
-            }
-            set {
-                this["ServerUpdate_ForceCopyMods"] = value;
             }
         }
         
@@ -892,15 +763,6 @@ namespace ARK_Server_Manager {
             }
             set {
                 this["StyleName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("workshopcache_346110.json")]
-        public string WorkshopCacheFile {
-            get {
-                return ((string)(this["WorkshopCacheFile"]));
             }
         }
         
@@ -1066,24 +928,6 @@ namespace ARK_Server_Manager {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("steamapps\\workshop")]
-        public string SteamWorkshopFolderRelativePath {
-            get {
-                return ((string)(this["SteamWorkshopFolderRelativePath"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("appworkshop_346110.acf")]
-        public string ArkSteamWorkshopFile {
-            get {
-                return ((string)(this["ArkSteamWorkshopFile"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -1134,43 +978,7 @@ namespace ARK_Server_Manager {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("+login {0} +workshop_download_item 407530 {1} +quit")]
-        public string SteamCmdInstallModArgsFormat_SotF {
-            get {
-                return ((string)(this["SteamCmdInstallModArgsFormat_SotF"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("appworkshop_407530.acf")]
-        public string ArkSteamWorkshopFile_SotF {
-            get {
-                return ((string)(this["ArkSteamWorkshopFile_SotF"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("steamapps\\workshop\\content\\407530\\")]
-        public string ArkSteamWorkshopFolderRelativePath_SotF {
-            get {
-                return ((string)(this["ArkSteamWorkshopFolderRelativePath_SotF"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("workshopcache_407530.json")]
-        public string WorkshopCacheFile_SotF {
-            get {
-                return ((string)(this["WorkshopCacheFile_SotF"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("346110")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2399830")]
         public string AppId {
             get {
                 return ((string)(this["AppId"]));
@@ -1179,28 +987,10 @@ namespace ARK_Server_Manager {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("407530")]
-        public string AppId_SotF {
-            get {
-                return ((string)(this["AppId_SotF"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("376030")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2430930")]
         public string AppIdServer {
             get {
                 return ((string)(this["AppIdServer"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("445400")]
-        public string AppIdServer_SotF {
-            get {
-                return ((string)(this["AppIdServer_SotF"]));
             }
         }
         
@@ -1219,51 +1009,6 @@ namespace ARK_Server_Manager {
         public string ClustersDir {
             get {
                 return ((string)(this["ClustersDir"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://arkservermanager.s3.amazonaws.com/beta/latest.txt")]
-        public string LatestASMBetaVersionUrl {
-            get {
-                return ((string)(this["LatestASMBetaVersionUrl"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://arkservermanager.s3.amazonaws.com/beta/latest.zip")]
-        public string LatestASMBetaDownloadUrl {
-            get {
-                return ((string)(this["LatestASMBetaDownloadUrl"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://arkservermanager.s3.amazonaws.com/release/latest.zip")]
-        public string LatestASMDownloadUrl {
-            get {
-                return ((string)(this["LatestASMDownloadUrl"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://arkservermanager.freeforums.net/thread/3/downloads")]
-        public string LatestASMPatchNotesUrl {
-            get {
-                return ((string)(this["LatestASMPatchNotesUrl"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://arkservermanager.freeforums.net/board/11/beta-testers")]
-        public string LatestASMBetaPatchNotesUrl {
-            get {
-                return ((string)(this["LatestASMBetaPatchNotesUrl"]));
             }
         }
         
@@ -1315,18 +1060,6 @@ namespace ARK_Server_Manager {
             }
             set {
                 this["EmailNotify_ShutdownRestart"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("168")]
-        public int WorkshopCache_ExpiredHours {
-            get {
-                return ((int)(this["WorkshopCache_ExpiredHours"]));
-            }
-            set {
-                this["WorkshopCache_ExpiredHours"] = value;
             }
         }
         
@@ -1480,18 +1213,6 @@ namespace ARK_Server_Manager {
         public string SteamAPIKeyUrl {
             get {
                 return ((string)(this["SteamAPIKeyUrl"]));
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ServerUpdate_ForceUpdateModsIfNoSteamInfo {
-            get {
-                return ((bool)(this["ServerUpdate_ForceUpdateModsIfNoSteamInfo"]));
-            }
-            set {
-                this["ServerUpdate_ForceUpdateModsIfNoSteamInfo"] = value;
             }
         }
         
@@ -1801,15 +1522,6 @@ namespace ARK_Server_Manager {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://arkservermanager.freeforums.net/board/22/plugins")]
-        public string ASMPluginUrl {
-            get {
-                return ((string)(this["ASMPluginUrl"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".asmprofile")]
         public string ProfileExtension {
             get {
@@ -1850,24 +1562,6 @@ namespace ARK_Server_Manager {
         public string MapExtension {
             get {
                 return ((string)(this["MapExtension"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ASM_")]
-        public string UpdaterPrefix {
-            get {
-                return ((string)(this["UpdaterPrefix"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ServerManagerUpdater.exe")]
-        public string UpdaterFile {
-            get {
-                return ((string)(this["UpdaterFile"]));
             }
         }
         
@@ -2076,24 +1770,6 @@ namespace ARK_Server_Manager {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ServerManagerVersionFeedUrl {
-            get {
-                return ((string)(this["ServerManagerVersionFeedUrl"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ServerManagerVersionBetaFeedUrl {
-            get {
-                return ((string)(this["ServerManagerVersionBetaFeedUrl"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("300")]
@@ -2156,19 +1832,10 @@ namespace ARK_Server_Manager {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("appmanifest_376030.acf")]
+        [global::System.Configuration.DefaultSettingValueAttribute("appmanifest_2430930.acf")]
         public string ArkSteamManifestFile {
             get {
                 return ((string)(this["ArkSteamManifestFile"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("appmanifest_407530.acf")]
-        public string ArkSteamManifestFile_SotF {
-            get {
-                return ((string)(this["ArkSteamManifestFile_SotF"]));
             }
         }
         
@@ -2190,18 +1857,6 @@ namespace ARK_Server_Manager {
             }
             set {
                 this["SectionPGMEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SectionSOTFEnabled {
-            get {
-                return ((bool)(this["SectionSOTFEnabled"]));
-            }
-            set {
-                this["SectionSOTFEnabled"] = value;
             }
         }
     }

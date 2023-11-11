@@ -172,16 +172,12 @@
     <Compile Include="Common\Extensions\IconExtension.cs" />
     <Compile Include="Common\Lib\BrowserBehavior.cs" />
     <Compile Include="Common\Lib\UserScopedSettingContractResolver.cs" />
-    <Compile Include="Common\Model\PublishedFileDetail.cs" />
     <Compile Include="Common\Model\SteamCmdManifestDetails.cs" />
-    <Compile Include="Common\Model\VersionFeed.cs" />
-    <Compile Include="Common\Model\VersionFeedEntry.cs" />
     <Compile Include="Common\Serialization\IniFile.cs" />
     <Compile Include="Common\Serialization\IniKey.cs" />
     <Compile Include="Common\Serialization\IniSection.cs" />
     <Compile Include="Common\Utils\IOUtils.cs" />
     <Compile Include="Common\Utils\SettingsUtils.cs" />
-    <Compile Include="Common\Utils\VersionFeedUtils.cs" />
     <Compile Include="Lib\Enums\LevelProgression.cs" />
     <Compile Include="Lib\Enums\ServerProfileCategory.cs" />
     <Compile Include="Lib\Model\ArkApplicationComboBoxItem.cs" />
@@ -232,25 +228,14 @@
     <Compile Include="Lib\ViewConverters\ExtinctionEventTimeIntervalConverter.cs" />
     <Compile Include="Common\ValidationRules\StringValidationRule.cs" />
     <Compile Include="Lib\ViewModel\SupplyCrateSettings.cs" />
-    <Compile Include="Windows\VersionFeedWindow.xaml.cs">
-      <DependentUpon>VersionFeedWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\WorldSaveRestoreWindow.xaml.cs">
       <DependentUpon>WorldSaveRestoreWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\WorkshopFilesWindow.xaml.cs">
-      <DependentUpon>WorkshopFilesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ShutdownWindow.xaml.cs">
       <DependentUpon>ShutdownWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\Converters\UnixTimeToDateTimeConverter.cs" />
-    <Compile Include="Windows\ModDetailsWindow.xaml.cs">
-      <DependentUpon>ModDetailsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Common\Utils\JsonUtils.cs" />
-    <Compile Include="Lib\Model\PublishedFileDetail.cs" />
-    <Compile Include="Common\Model\WorkshopFileDetail.cs" />
     <Compile Include="Common\Converters\InvertBooleanConverter.cs" />
     <Compile Include="Windows\ProgressWindow.xaml.cs">
       <DependentUpon>ProgressWindow.xaml</DependentUpon>
@@ -260,7 +245,6 @@
     <Compile Include="Lib\Model\ResourceClassMultiplier.cs" />
     <Compile Include="Common\Model\IntegerIniValueList.cs" />
     <Compile Include="Lib\Model\SupplyCrateOverride.cs" />
-    <Compile Include="Lib\Utils\ModUtils.cs" />
     <Compile Include="Common\Utils\StringUtils.cs" />
     <Compile Include="Lib\ViewModel\PrimalItem.cs" />
     <Compile Include="Lib\ViewConverters\PrimalItemClassNameToDisplayNameConverter.cs" />
@@ -420,23 +404,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\VersionFeedWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\WorldSaveRestoreWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\WorkshopFilesWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Windows\ShutdownWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\ModDetailsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -584,10 +556,6 @@
     <ProjectReference Include="..\QueryMaster\QueryMaster.csproj">
       <Project>{4ca9c894-518f-42d7-bbe2-cfdfe7a03f8a}</Project>
       <Name>QueryMaster</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ServerManager.Updater\ServerManager.Updater.csproj">
-      <Project>{3e0c9ee6-780f-4fef-ba03-e38062a5fdb6}</Project>
-      <Name>ServerManager.Updater</Name>
     </ProjectReference>
     <ProjectReference Include="..\WPFSharp.Globalizer\WPFSharp.Globalizer.csproj">
       <Project>{715461e8-4e54-4993-80a8-8e72892135e0}</Project>

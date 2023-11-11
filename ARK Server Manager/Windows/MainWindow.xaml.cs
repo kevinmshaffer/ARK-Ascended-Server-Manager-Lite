@@ -30,24 +30,15 @@ namespace ARK_Server_Manager
         private ActionQueue versionChecker;
         private ActionQueue scheduledTaskChecker;
 
-        public static readonly DependencyProperty BetaVersionProperty = DependencyProperty.Register(nameof(BetaVersion), typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
         public static readonly DependencyProperty IsIpValidProperty = DependencyProperty.Register(nameof(IsIpValid), typeof(bool), typeof(MainWindow));
         public static readonly DependencyProperty CurrentConfigProperty = DependencyProperty.Register(nameof(CurrentConfig), typeof(Config), typeof(MainWindow));
         public static readonly DependencyProperty ServerManagerProperty = DependencyProperty.Register(nameof(ServerManager), typeof(ServerManager), typeof(MainWindow), new PropertyMetadata(null));
-        public static readonly DependencyProperty LatestASMVersionProperty = DependencyProperty.Register(nameof(LatestASMVersion), typeof(Version), typeof(MainWindow), new PropertyMetadata(new Version()));
-        public static readonly DependencyProperty NewASMAvailableProperty = DependencyProperty.Register(nameof(NewASMAvailable), typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
         public static readonly DependencyProperty AutoBackupStateProperty = DependencyProperty.Register(nameof(AutoBackupState), typeof(Microsoft.Win32.TaskScheduler.TaskState), typeof(MainWindow), new PropertyMetadata(Microsoft.Win32.TaskScheduler.TaskState.Unknown));
         public static readonly DependencyProperty AutoBackupStateStringProperty = DependencyProperty.Register(nameof(AutoBackupStateString), typeof(string), typeof(MainWindow), new PropertyMetadata(string.Empty));
         public static readonly DependencyProperty AutoBackupNextRunTimeProperty = DependencyProperty.Register(nameof(AutoBackupNextRunTime), typeof(string), typeof(MainWindow), new PropertyMetadata(string.Empty));
         public static readonly DependencyProperty AutoUpdateStateProperty = DependencyProperty.Register(nameof(AutoUpdateState), typeof(Microsoft.Win32.TaskScheduler.TaskState), typeof(MainWindow), new PropertyMetadata(Microsoft.Win32.TaskScheduler.TaskState.Unknown));
         public static readonly DependencyProperty AutoUpdateStateStringProperty = DependencyProperty.Register(nameof(AutoUpdateStateString), typeof(string), typeof(MainWindow), new PropertyMetadata(string.Empty));
         public static readonly DependencyProperty AutoUpdateNextRunTimeProperty = DependencyProperty.Register(nameof(AutoUpdateNextRunTime), typeof(string), typeof(MainWindow), new PropertyMetadata(string.Empty));
-
-        public bool BetaVersion
-        {
-            get { return (bool)GetValue(BetaVersionProperty); }
-            set { SetValue(BetaVersionProperty, value); }
-        }
 
         public bool IsIpValid
         {
@@ -65,18 +56,6 @@ namespace ARK_Server_Manager
         {
             get { return (ServerManager)GetValue(ServerManagerProperty); }
             set { SetValue(ServerManagerProperty, value); }
-        }
-
-        public Version LatestASMVersion
-        {
-            get { return (Version)GetValue(LatestASMVersionProperty); }
-            set { SetValue(LatestASMVersionProperty, value); }
-        }
-
-        public bool NewASMAvailable
-        {
-            get { return (bool)GetValue(NewASMAvailableProperty); }
-            set { SetValue(NewASMAvailableProperty, value); }
         }
 
         public Microsoft.Win32.TaskScheduler.TaskState AutoBackupState
@@ -123,7 +102,6 @@ namespace ARK_Server_Manager
 
         public MainWindow()
         {
-            BetaVersion = App.Instance.BetaVersion;
             this.CurrentConfig = Config.Default;
 
             InitializeComponent();
@@ -169,7 +147,6 @@ namespace ARK_Server_Manager
                     Tabs.SelectedIndex = 0;
                 }).DoNotWait();
 
-            this.versionChecker.PostAction(CheckForUpdates).DoNotWait();
             this.scheduledTaskChecker.PostAction(CheckForScheduledTasks).DoNotWait();
         }
 
@@ -190,52 +167,6 @@ namespace ARK_Server_Manager
         private void ResourceDictionaryChangedEvent(object source, ResourceDictionaryChangedEventArgs e)
         {
             this.scheduledTaskChecker.PostAction(CheckForScheduledTasks).DoNotWait();
-        }
-
-        private void ASMPatchNotes_Click(object sender, RoutedEventArgs e)
-        {
-            var url = string.Empty;
-            if (BetaVersion)
-                url = Config.Default.ServerManagerVersionBetaFeedUrl;
-            else
-                url = Config.Default.ServerManagerVersionFeedUrl;
-
-            if (!string.IsNullOrWhiteSpace(url))
-            {
-                var window = new VersionFeedWindow(url);
-                window.Closed += Window_Closed;
-                window.Owner = this;
-                window.ShowDialog();
-            }
-            else
-            {
-                if (BetaVersion)
-                    url = Config.Default.LatestASMBetaPatchNotesUrl;
-                else
-                    url = Config.Default.LatestASMPatchNotesUrl;
-
-                if (string.IsNullOrWhiteSpace(url))
-                    return;
-
-                Process.Start(url);
-            }
-        }
-
-        private void Donate_Click(object sender, RoutedEventArgs e)
-        {
-            var result = MessageBox.Show(_globalizer.GetResourceString("MainWindow_Donate_Label"), _globalizer.GetResourceString("MainWindow_Donate_Title"), MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
-            {
-                var process = Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=cliff%2es%2ehudson%40gmail%2ecom&lc=US&item_name=Ark%20Server%20Manager&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted");
-            }
-        }
-
-        private void Help_Click(object sender, RoutedEventArgs args)
-        {
-            if (string.IsNullOrWhiteSpace(Config.Default.HelpUrl))
-                return;
-
-            Process.Start(Config.Default.HelpUrl);
         }
 
         private void OpenLogFolder_Click(object sender, RoutedEventArgs e)
@@ -316,57 +247,6 @@ namespace ARK_Server_Manager
                 {
                     if (window != null)
                         window.CloseWindow();
-                }
-            }
-        }
-
-        private async void Upgrade_Click(object sender, RoutedEventArgs e)
-        {
-            var result = MessageBox.Show(String.Format(_globalizer.GetResourceString("MainWindow_Upgrade_Label"), this.LatestASMVersion), _globalizer.GetResourceString("MainWindow_Upgrade_Title"), MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if(result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    OverlayMessage.Content = _globalizer.GetResourceString("MainWindow_OverlayMessage_UpgradeLabel");
-                    OverlayGrid.Visibility = Visibility.Visible;
-
-                    await Task.Delay(500);
-
-                    var process = Process.GetCurrentProcess();
-                    if (process == null || process.HasExited)
-                        throw new Exception("Application process could not be found or does not exist.");
-
-                    var assemblyLocation = Assembly.GetEntryAssembly().Location;
-                    var updaterFile = Path.Combine(Path.GetDirectoryName(assemblyLocation), Config.Default.UpdaterFile);
-                    if (!File.Exists(updaterFile))
-                        throw new FileNotFoundException("The updater application could not be found or does not exist.");
-
-                    var arguments = new string[]
-                        {
-                            process.Id.ToString().AsQuoted(),
-                            App.Instance.BetaVersion ? Config.Default.LatestASMBetaDownloadUrl.AsQuoted() : Config.Default.LatestASMDownloadUrl.AsQuoted(),
-                            Config.Default.UpdaterPrefix.AsQuoted(),
-                        };
-
-                    ProcessStartInfo info = new ProcessStartInfo()
-                    {
-                        FileName = updaterFile.AsQuoted(),
-                        Arguments = string.Join(" ", arguments),
-                        UseShellExecute = true,
-                        CreateNoWindow = true,
-                    };
-
-                    var updaterProcess = Process.Start(info);
-                    if (updaterProcess == null)
-                        throw new Exception("Could not restart application.");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(String.Format(_globalizer.GetResourceString("MainWindow_Upgrade_FailedLabel"), ex.Message, ex.StackTrace), _globalizer.GetResourceString("MainWindow_Upgrade_FailedTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                finally
-                {
-                    OverlayGrid.Visibility = Visibility.Collapsed;
                 }
             }
         }
@@ -460,31 +340,6 @@ namespace ARK_Server_Manager
             {
                 // Ignore.
             }
-        }
-
-        private async Task CheckForUpdates()
-        {
-            var newVersion = await NetworkUtils.GetLatestASMVersion();
-            TaskUtils.RunOnUIThreadAsync(() =>
-            {
-                try
-                {
-                    var appVersion = new Version();
-                    Version.TryParse(App.Version, out appVersion);
-
-                    this.LatestASMVersion = newVersion;
-                    this.NewASMAvailable = appVersion < newVersion;
-
-                    Logger.Debug("CheckForUpdates performed");
-                }
-                catch (Exception)
-                {
-                    // Ignore.
-                }
-            }).DoNotWait();
-
-            await Task.Delay(Config.Default.UpdateCheckTime * 60 * 1000);
-            this.versionChecker.PostAction(CheckForUpdates).DoNotWait();
         }
 
         private async Task CheckForScheduledTasks()

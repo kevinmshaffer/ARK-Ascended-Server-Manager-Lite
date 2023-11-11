@@ -121,5 +121,12 @@ namespace ARK_Server_Manager.Lib
 
             return false;
         }
-    }
+
+		public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
+		{
+			// Unix timestamp is seconds past epoch
+			DateTime datetime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+			return datetime.AddSeconds(unixTimeStamp).ToLocalTime();
+		}
+	}
 }

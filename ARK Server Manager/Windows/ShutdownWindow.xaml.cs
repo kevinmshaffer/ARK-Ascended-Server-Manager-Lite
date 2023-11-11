@@ -37,7 +37,7 @@ namespace ARK_Server_Manager
             WindowUtils.RemoveDefaultResourceDictionary(this);
 
             Server = server;
-            BackupWorldFile = !server?.Profile?.SOTF_Enabled ?? false;
+			BackupWorldFile = true;
             this.Title = string.Format(_globalizer.GetResourceString("ShutdownWindow_ProfileTitle"), server?.Profile?.ProfileName);
 
             this.DataContext = this;

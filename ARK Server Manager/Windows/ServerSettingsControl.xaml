@@ -648,23 +648,6 @@
                                         </Style.Triggers>
                                     </Style>
                                 </StackPanel.Style>
-
-                                <Label  FontSize="15" Content="{DynamicResource ServerSettings_OutOfDateModsLabel}" ToolTip="{DynamicResource ServerSettings_OutOfDateModsTooltip}"/>
-                                <Label  FontSize="15" Content="{Binding OutOfDateModCount, FallbackValue=0}">
-                                    <Label.Style>
-                                        <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
-                                            <Setter Property="Foreground" Value="Black"/>
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding OutOfDateModCount, FallbackValue=0, Converter={vm:GreaterThanIntValueConverter 0}}" Value="true">
-                                                    <Setter Property="Foreground" Value="Red"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Label.Style>
-                                </Label>
-                                <Button Grid.Column="2" Click="OutOfDateModUpdate_Click" ToolTip="{DynamicResource ServerSettings_OutOfDateModsButtonTooltip}" Style="{StaticResource ButtonStyle1}">
-                                    <Image Source="{lib:Icon Path=/Ark Server Manager;component/Art/Reload.ico,Size=32}"/>
-                                </Button>
                             </StackPanel>
 
                             <Button Grid.Column="6" Click="ValidateProfile_Click" ToolTip="{DynamicResource ServerSettings_ValidateProfileTooltip}" Style="{StaticResource ButtonStyle1}">
@@ -1123,7 +1106,6 @@
                                             <ColumnDefinition Width="30"/>
                                             <ColumnDefinition Width="100*"/>
                                             <ColumnDefinition Width="30"/>
-                                            <ColumnDefinition Width="30"/>
                                         </Grid.ColumnDefinitions>
 
                                         <Label   Grid.Row="0" Grid.Column="0" Content="{DynamicResource ServerSettings_MapPathLabel}" ToolTip="{DynamicResource ServerSettings_MapPathTooltip}" VerticalAlignment="Center"/>
@@ -1140,24 +1122,8 @@
                                             </ComboBox.Style>
                                         </ComboBox>
 
-                                        <Label   Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="{DynamicResource ServerSettings_TotalConversionLabel}" ToolTip="{DynamicResource ServerSettings_TotalConversionTooltip}" VerticalAlignment="Center"/>
-                                        <ComboBox Grid.Row="1" Grid.Column="1" Margin="1" Name="TotalConversionComboBox" ItemsSource="{Binding BaseTotalConversions, ElementName=SettingsControl}" SelectedValue="{Binding TotalConversionModId, Mode=TwoWay, UpdateSourceTrigger=Explicit}" SelectedValuePath="ValueMember" DisplayMemberPath="DisplayMember" IsEditable="True" ToolTip="{DynamicResource ServerSettings_TotalConversionTooltip}" LostFocus="ComboBoxItemList_LostFocus" PreviewMouseWheel="ComboBox_PreviewMouseWheel"/>
-                                        <Button  Grid.Row="1" Grid.Column="3" Width="22" Height="22" Margin="5,1,0,0" ToolTip="{DynamicResource ServerSettings_FindTotalConversionMapNameTooltip}" HorizontalAlignment="Left" Command="{Binding ResetActionCommand, ElementName=SettingsControl}" CommandParameter="{x:Static local:ServerSettingsResetAction.MapNameTotalConversionProperty}">
-                                            <Button.Style>
-                                                <Style BasedOn="{StaticResource ButtonStyle1}" TargetType="{x:Type Button}">
-                                                    <Setter Property="Visibility" Value="Visible"/>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding ElementName=EnablePGMCheckbox, Path=IsChecked}" Value="True">
-                                                            <Setter Property="Visibility" Value="Hidden"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Button.Style>
-                                            <Image Source="{lib:Icon Path=/Ark Server Manager;component/Art/Find.ico,Size=32}"/>
-                                        </Button>
-
-                                        <Label   Grid.Row="2" Grid.Column="0" Content="{DynamicResource ServerSettings_ModIdsLabel}" Grid.ColumnSpan="2" ToolTip="{DynamicResource ServerSettings_ModIdsTooltip}" VerticalAlignment="Center"/>
-                                        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="6" Margin="1" ToolTip="{DynamicResource ServerSettings_ModIdsTooltip}">
+                                        <Label   Grid.Row="1" Grid.Column="0" Content="{DynamicResource ServerSettings_ModIdsLabel}" Grid.ColumnSpan="2" ToolTip="{DynamicResource ServerSettings_ModIdsTooltip}" VerticalAlignment="Center"/>
+                                        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" Margin="1" ToolTip="{DynamicResource ServerSettings_ModIdsTooltip}">
                                             <Validation.ErrorTemplate>
                                                 <ControlTemplate>
                                                     <StackPanel>
@@ -1174,25 +1140,9 @@
                                                 </Binding>
                                             </TextBox.Text>
                                         </TextBox>
-                                        <Button  Grid.Row="2" Grid.Column="7" ToolTip="{DynamicResource ServerSettings_ModDetailsTooltip}" Click="OpenModDetails_Click" Style="{StaticResource ButtonStyle1}">
+                                        <!--<Button  Grid.Row="1" Grid.Column="7" ToolTip="{DynamicResource ServerSettings_ModDetailsTooltip}" Click="OpenModDetails_Click" Style="{StaticResource ButtonStyle1}">
                                             <Image Source="{lib:Icon Path=/Ark Server Manager;component/Art/Find.ico,Size=32}"/>
-                                        </Button>
-                                        <Button  Grid.Row="2" Grid.Column="8" DataContext="{Binding Runtime, ElementName=SettingsControl}" ToolTip="{DynamicResource ServerSettings_ModUpgradeTooltip}" Click="ModUpgrade_Click">
-                                            <Image Source="{lib:Icon Path=/Ark Server Manager;component/Art/Download.ico,Size=32}"/>
-                                            <Button.Style>
-                                                <Style BasedOn="{StaticResource ButtonStyle1}" TargetType="{x:Type Button}">
-                                                    <Setter Property="IsEnabled" Value="False"/>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Status}" Value="{x:Static lib:ServerRuntime+ServerStatus.Stopped}">
-                                                            <Setter Property="IsEnabled" Value="True"/>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding Status}" Value="{x:Static lib:ServerRuntime+ServerStatus.Uninstalled}">
-                                                            <Setter Property="IsEnabled" Value="True"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Button.Style>
-                                        </Button>
+                                        </Button>-->
                                     </Grid>
                                 </GroupBox>
 
@@ -4896,89 +4846,6 @@
                                 </StackPanel>
                             </Grid>
                         </Expander>
-
-                        <Expander Name="SectionSOTF" IsExpanded="{Binding CurrentConfig.SectionSOTFIsExpanded, ElementName=SettingsControl, FallbackValue=True, Mode=TwoWay}" Visibility="{Binding CurrentConfig.SectionSOTFEnabled, ElementName=SettingsControl, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Expander.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{DynamicResource ServerSettings_SOTFLabel}" Style="{StaticResource ExpanderHeaderTextStyle}"/>
-                                    <Button Margin="20,0,0,0" ToolTip="{DynamicResource ServerSettings_ResetSectionTooltip}" Style="{StaticResource ButtonStyle1}"
-                                            IsEnabled="{Binding ElementName=SectionSOTF, Path=IsExpanded}"
-                                            Command="{Binding ResetActionCommand, ElementName=SettingsControl}" CommandParameter="{x:Static local:ServerSettingsResetAction.SOTFSection}">
-                                        <Image Source="{lib:Icon Path=/Ark Server Manager;component/Art/Refresh.ico,Size=32}"/>
-                                    </Button>
-                                </StackPanel>
-                            </Expander.Header>
-
-                            <Expander.Style>
-                                <Style BasedOn="{StaticResource ExpanderStyle1}" TargetType="{x:Type Expander}">
-                                    <Setter Property="Template" Value="{StaticResource ExpanderTemplateSE}"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ElementName=EnableSOTFCheckbox, Path=IsChecked}" Value="True">
-                                            <Setter Property="Template" Value="{StaticResource ExpanderTemplateSotF}"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding ElementName=EnablePGMCheckbox, Path=IsChecked}" Value="True">
-                                            <Setter Property="Template" Value="{StaticResource ExpanderTemplatePGM}"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Expander.Style>
-
-                            <Grid Margin="-8,0,2,0">
-                                <GroupBox Style="{StaticResource GroupBoxStyle}">
-                                    <GroupBox.Header>
-                                        <StackPanel Orientation="Horizontal">
-                                            <CheckBox Name="EnableSOTFCheckbox" IsChecked="{Binding SOTF_Enabled, NotifyOnSourceUpdated=True}" IsEnabled="{Binding ElementName=EnablePGMCheckbox, Path=IsChecked, Converter={StaticResource InvertBooleanConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Content="{DynamicResource ServerSettings_EnableSOTFLabel}" ToolTip="{DynamicResource ServerSettings_EnableSOTFTooltip}" VerticalContentAlignment="Center" FontWeight="Bold" SourceUpdated="EnableSOTFCheckbox_SourceUpdated" />
-                                            <Button Margin="20,5,5,5" Click="HelpSOTF_Click" BorderThickness="0" Background="{StaticResource BeigeGradient}"  ToolTip="{DynamicResource ServerSettings_SOTF_HelpTooltip}" Style="{StaticResource ButtonStyle1}">
-                                                <Image Source="{lib:Icon Path=/Ark Server Manager;component/Art/Help.ico,Size=32}"/>
-                                            </Button>
-                                        </StackPanel>
-                                    </GroupBox.Header>
-
-                                    <Grid IsEnabled="{Binding ElementName=EnableSOTFCheckbox, Path=IsChecked}">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <CheckBox Grid.Row="0" Grid.Column="0" Margin="5,5,5,0" IsChecked="{Binding SOTF_OutputGameReport}" Content="{DynamicResource ServerSettings_EnableOutputGameReportLabel}" ToolTip="{DynamicResource ServerSettings_EnableOutputGameReportTooltip}" HorizontalAlignment="Left"/>
-                                        <CheckBox Grid.Row="1" Grid.Column="0" Margin="5,5,5,0" IsChecked="{Binding SOTF_GamePlayLogging}" Content="{DynamicResource ServerSettings_EnableGamePlayLoggingLabel}" ToolTip="{DynamicResource ServerSettings_EnableGamePlayLoggingTooltip}" HorizontalAlignment="Left"/>
-
-                                        <CheckBox Grid.Row="0" Grid.Column="1" Margin="5,5,5,0" IsChecked="{Binding SOTF_DisableDeathSPectator}" Content="{DynamicResource ServerSettings_DisableDeathSpectatorLabel}" ToolTip="{DynamicResource ServerSettings_DisableDeathSpectatorTooltip}" HorizontalAlignment="Left"/>
-                                        <CheckBox Grid.Row="1" Grid.Column="1" Margin="5,5,5,0" IsChecked="{Binding SOTF_OnlyAdminRejoinAsSpectator}" Content="{DynamicResource ServerSettings_OnlyAdminRejoinSpectatorLabel}"  ToolTip="{DynamicResource ServerSettings_OnlyAdminRejoinSpectatorTooltip}" HorizontalAlignment="Left"/>
-
-                                        <CheckBox Grid.Row="0" Grid.Column="2" Margin="5,5,5,0" IsChecked="{Binding SOTF_NoEvents}" Content="{DynamicResource ServerSettings_SOTFNoEventsLabel}" ToolTip="{DynamicResource ServerSettings_SOTFNoEventsTooltip}" HorizontalAlignment="Left"/>
-                                        <CheckBox Grid.Row="1" Grid.Column="2" Margin="5,5,5,0" IsChecked="{Binding SOTF_NoBosses}" Content="{DynamicResource ServerSettings_SOTFNoBossesLabel}" ToolTip="{DynamicResource ServerSettings_SOTFNoBossesTooltip}" HorizontalAlignment="Left"/>
-                                        <CheckBox Grid.Row="2" Grid.Column="2" Margin="5" IsChecked="{Binding SOTF_BothBosses}" Content="{DynamicResource ServerSettings_SOTFBothBossesLabel}" ToolTip="{DynamicResource ServerSettings_SOTFBothBossesTooltip}" HorizontalAlignment="Left"/>
-
-                                        <local:AnnotatedSlider Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="1" Label="{DynamicResource ServerSettings_MaxPlayersInTribeLabel}" Value="{Binding SOTF_MaxNumberOfPlayersInTribe}" Suffix="{DynamicResource SliderUnits_Players}" Minimum="1" Maximum="127" SmallChange="5" LargeChange="20" TickFrequency="10" ToolTip="{DynamicResource ServerSettings_MaxPlayersInTribeTooltip}"/>
-                                        <local:AnnotatedSlider Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Margin="1" Label="{DynamicResource ServerSettings_TribesRequiredForGameLabel}" Value="{Binding SOTF_BattleNumOfTribesToStartGame}" Suffix="{DynamicResource SliderUnits_Tribes}" Minimum="1" Maximum="127" SmallChange="5" LargeChange="20" TickFrequency="10" ToolTip="{DynamicResource ServerSettings_TribesRequiredForGameTooltip}"/>
-                                        <local:AnnotatedSlider Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Margin="1" Label="{DynamicResource ServerSettings_RingOfDeathCollapseTimeLabel}" Value="{Binding SOTF_TimeToCollapseROD}" Suffix="{DynamicResource SliderUnits_Seconds}" Minimum="60" Maximum="86400" SmallChange="900" LargeChange="3600" TickFrequency="3600" ToolTip="{DynamicResource ServerSettings_RingOfDeathCollapseTimeTooltip}"/>
-                                        <local:AnnotatedSlider Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="1" Label="{DynamicResource ServerSettings_AutoStartDelayTimeLabel}" Value="{Binding SOTF_BattleAutoStartGameInterval}" Suffix="{DynamicResource SliderUnits_Seconds}" Minimum="5" Maximum="120" SmallChange="5" LargeChange="20" TickFrequency="10" ToolTip="{DynamicResource ServerSettings_AutoStartDelayTimeTooltip}"/>
-                                        <local:AnnotatedSlider Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Margin="1" Label="{DynamicResource ServerSettings_AutoRestartDelayTimeLabel}" Value="{Binding SOTF_BattleAutoRestartGameInterval}" Suffix="{DynamicResource SliderUnits_Seconds}"  Minimum="5" Maximum="120" SmallChange="5" LargeChange="20" TickFrequency="10" ToolTip="{DynamicResource ServerSettings_AutoRestartDelayTimeTooltip}"/>
-                                        <local:AnnotatedSlider Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Margin="1" Label="{DynamicResource ServerSettings_SuddenDeathTimeLabel}" Value="{Binding SOTF_BattleSuddenDeathInterval}" Suffix="{DynamicResource SliderUnits_Seconds}" Minimum="60" Maximum="3600" SmallChange="60" LargeChange="600" TickFrequency="300" ToolTip="{DynamicResource ServerSettings_SuddenDeathTimeTooltip}"/>
-                                        <local:AnnotatedSlider Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" Margin="1" Label="{DynamicResource ServerSettings_SOTFEvoEventIntervalLabel}" Value="{Binding SOTF_EvoEventInterval}" Suffix="{DynamicResource SliderUnits_Multiplier}" Minimum="0.1" Maximum="10" SmallChange="0.1" LargeChange="1" TickFrequency="1" ToolTip="{DynamicResource ServerSettings_SOTFEvoEventIntervalTooltip}"/>
-                                        <local:AnnotatedSlider Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" Margin="1" Label="{DynamicResource ServerSettings_SOTFRingStartTimeLabel}" Value="{Binding SOTF_RingStartTime}" Suffix="{DynamicResource SliderUnits_Seconds}" Minimum="100" Maximum="10000" SmallChange="10" LargeChange="100" TickFrequency="100" ToolTip="{DynamicResource ServerSettings_SOTFRingStartTimeTooltip}"/>
-                                    </Grid>
-                                </GroupBox>
-                            </Grid>
-                        </Expander>
-
                     </StackPanel>
                 </ScrollViewer>
             </Border>

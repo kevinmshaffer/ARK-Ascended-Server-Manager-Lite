@@ -305,14 +305,6 @@ namespace ARK_Server_Manager.Lib
             set { SetValue(ServerMapProperty, value); }
         }
 
-        public static readonly DependencyProperty TotalConversionModIdProperty = DependencyProperty.Register(nameof(TotalConversionModId), typeof(string), typeof(ServerProfile), new PropertyMetadata(String.Empty));
-        [DataMember]
-        public string TotalConversionModId
-        {
-            get { return (string)GetValue(TotalConversionModIdProperty); }
-            set { SetValue(TotalConversionModIdProperty, value); }
-        }
-
         public static readonly DependencyProperty ServerModIdsProperty = DependencyProperty.Register(nameof(ServerModIds), typeof(string), typeof(ServerProfile), new PropertyMetadata(String.Empty));
         [DataMember]
         [IniFileEntry(IniFiles.GameUserSettings, IniFileSections.ServerSettings, "ActiveMods", Category = ServerProfileCategory.Administration)]
@@ -2828,142 +2820,6 @@ namespace ARK_Server_Manager.Lib
         }
         #endregion
 
-        #region Survival of the Fittest
-        public static readonly DependencyProperty SOTF_EnabledProperty = DependencyProperty.Register(nameof(SOTF_Enabled), typeof(bool), typeof(ServerProfile), new PropertyMetadata(false));
-        [DataMember]
-        public bool SOTF_Enabled
-        {
-            get { return (bool)GetValue(SOTF_EnabledProperty); }
-            set { SetValue(SOTF_EnabledProperty, value); }
-        }
-
-        public static readonly DependencyProperty SOTF_DisableDeathSPectatorProperty = DependencyProperty.Register(nameof(SOTF_DisableDeathSPectator), typeof(bool), typeof(ServerProfile), new PropertyMetadata(false));
-        [DataMember]
-        public bool SOTF_DisableDeathSPectator
-        {
-            get { return (bool)GetValue(SOTF_DisableDeathSPectatorProperty); }
-            set { SetValue(SOTF_DisableDeathSPectatorProperty, value); }
-        }
-
-        public static readonly DependencyProperty SOTF_OnlyAdminRejoinAsSpectatorProperty = DependencyProperty.Register(nameof(SOTF_OnlyAdminRejoinAsSpectator), typeof(bool), typeof(ServerProfile), new PropertyMetadata(false));
-        [DataMember]
-        public bool SOTF_OnlyAdminRejoinAsSpectator
-        {
-            get { return (bool)GetValue(SOTF_OnlyAdminRejoinAsSpectatorProperty); }
-            set { SetValue(SOTF_OnlyAdminRejoinAsSpectatorProperty, value); }
-        }
-
-        public static readonly DependencyProperty SOTF_GamePlayLoggingProperty = DependencyProperty.Register(nameof(SOTF_GamePlayLogging), typeof(bool), typeof(ServerProfile), new PropertyMetadata(false));
-        [DataMember]
-        public bool SOTF_GamePlayLogging
-        {
-            get { return (bool)GetValue(SOTF_GamePlayLoggingProperty); }
-            set { SetValue(SOTF_GamePlayLoggingProperty, value); }
-        }
-
-        public static readonly DependencyProperty SOTF_OutputGameReportProperty = DependencyProperty.Register(nameof(SOTF_OutputGameReport), typeof(bool), typeof(ServerProfile), new PropertyMetadata(false));
-        [DataMember]
-        public bool SOTF_OutputGameReport
-        {
-            get { return (bool)GetValue(SOTF_OutputGameReportProperty); }
-            set { SetValue(SOTF_OutputGameReportProperty, value); }
-        }
-
-        public static readonly DependencyProperty SOTF_MaxNumberOfPlayersInTribeProperty = DependencyProperty.Register(nameof(SOTF_MaxNumberOfPlayersInTribe), typeof(int), typeof(ServerProfile), new PropertyMetadata(2));
-        [DataMember]
-        [IniFileEntry(IniFiles.GameUserSettings, IniFileSections.ServerSettings, "MaxNumberOfPlayersInTribe", Category = ServerProfileCategory.SOTF, ConditionedOn = nameof(SOTF_Enabled))]
-        public int SOTF_MaxNumberOfPlayersInTribe
-        {
-            get { return (int)GetValue(SOTF_MaxNumberOfPlayersInTribeProperty); }
-            set { SetValue(SOTF_MaxNumberOfPlayersInTribeProperty, value); }
-        }
-
-        public static readonly DependencyProperty SOTF_BattleNumOfTribesToStartGameProperty = DependencyProperty.Register(nameof(SOTF_BattleNumOfTribesToStartGame), typeof(int), typeof(ServerProfile), new PropertyMetadata(15));
-        [DataMember]
-        [IniFileEntry(IniFiles.GameUserSettings, IniFileSections.ServerSettings, "BattleNumOfTribesToStartGame", Category = ServerProfileCategory.SOTF, ConditionedOn = nameof(SOTF_Enabled))]
-        public int SOTF_BattleNumOfTribesToStartGame
-        {
-            get { return (int)GetValue(SOTF_BattleNumOfTribesToStartGameProperty); }
-            set { SetValue(SOTF_BattleNumOfTribesToStartGameProperty, value); }
-        }
-
-        public static readonly DependencyProperty SOTF_TimeToCollapseRODProperty = DependencyProperty.Register(nameof(SOTF_TimeToCollapseROD), typeof(int), typeof(ServerProfile), new PropertyMetadata(9000));
-        [DataMember]
-        [IniFileEntry(IniFiles.GameUserSettings, IniFileSections.ServerSettings, "TimeToCollapseROD", Category = ServerProfileCategory.SOTF, ConditionedOn = nameof(SOTF_Enabled))]
-        public int SOTF_TimeToCollapseROD
-        {
-            get { return (int)GetValue(SOTF_TimeToCollapseRODProperty); }
-            set { SetValue(SOTF_TimeToCollapseRODProperty, value); }
-        }
-
-        public static readonly DependencyProperty SOTF_BattleAutoStartGameIntervalProperty = DependencyProperty.Register(nameof(SOTF_BattleAutoStartGameInterval), typeof(int), typeof(ServerProfile), new PropertyMetadata(60));
-        [DataMember]
-        [IniFileEntry(IniFiles.GameUserSettings, IniFileSections.ServerSettings, "BattleAutoStartGameInterval", Category = ServerProfileCategory.SOTF, ConditionedOn = nameof(SOTF_Enabled))]
-        public int SOTF_BattleAutoStartGameInterval
-        {
-            get { return (int)GetValue(SOTF_BattleAutoStartGameIntervalProperty); }
-            set { SetValue(SOTF_BattleAutoStartGameIntervalProperty, value); }
-        }
-
-        public static readonly DependencyProperty SOTF_BattleAutoRestartGameIntervalProperty = DependencyProperty.Register(nameof(SOTF_BattleAutoRestartGameInterval), typeof(int), typeof(ServerProfile), new PropertyMetadata(45));
-        [DataMember]
-        [IniFileEntry(IniFiles.GameUserSettings, IniFileSections.ServerSettings, "BattleAutoRestartGameInterval", Category = ServerProfileCategory.SOTF, ConditionedOn = nameof(SOTF_Enabled))]
-        public int SOTF_BattleAutoRestartGameInterval
-        {
-            get { return (int)GetValue(SOTF_BattleAutoRestartGameIntervalProperty); }
-            set { SetValue(SOTF_BattleAutoRestartGameIntervalProperty, value); }
-        }
-
-        public static readonly DependencyProperty SOTF_BattleSuddenDeathIntervalProperty = DependencyProperty.Register(nameof(SOTF_BattleSuddenDeathInterval), typeof(int), typeof(ServerProfile), new PropertyMetadata(300));
-        [DataMember]
-        [IniFileEntry(IniFiles.GameUserSettings, IniFileSections.ServerSettings, "BattleSuddenDeathInterval", Category = ServerProfileCategory.SOTF, ConditionedOn = nameof(SOTF_Enabled))]
-        public int SOTF_BattleSuddenDeathInterval
-        {
-            get { return (int)GetValue(SOTF_BattleSuddenDeathIntervalProperty); }
-            set { SetValue(SOTF_BattleSuddenDeathIntervalProperty, value); }
-        }
-
-        public static readonly DependencyProperty SOTF_NoEventsProperty = DependencyProperty.Register(nameof(SOTF_NoEvents), typeof(bool), typeof(ServerProfile), new PropertyMetadata(false));
-        [DataMember]
-        public bool SOTF_NoEvents
-        {
-            get { return (bool)GetValue(SOTF_NoEventsProperty); }
-            set { SetValue(SOTF_NoEventsProperty, value); }
-        }
-
-        public static readonly DependencyProperty SOTF_NoBossesProperty = DependencyProperty.Register(nameof(SOTF_NoBosses), typeof(bool), typeof(ServerProfile), new PropertyMetadata(false));
-        [DataMember]
-        public bool SOTF_NoBosses
-        {
-            get { return (bool)GetValue(SOTF_NoBossesProperty); }
-            set { SetValue(SOTF_NoBossesProperty, value); }
-        }
-
-        public static readonly DependencyProperty SOTF_BothBossesProperty = DependencyProperty.Register(nameof(SOTF_BothBosses), typeof(bool), typeof(ServerProfile), new PropertyMetadata(false));
-        [DataMember]
-        public bool SOTF_BothBosses
-        {
-            get { return (bool)GetValue(SOTF_BothBossesProperty); }
-            set { SetValue(SOTF_BothBossesProperty, value); }
-        }
-
-        public static readonly DependencyProperty SOTF_EvoEventIntervalProperty = DependencyProperty.Register(nameof(SOTF_EvoEventInterval), typeof(float), typeof(ServerProfile), new PropertyMetadata(1.0f));
-        [DataMember]
-        public float SOTF_EvoEventInterval
-        {
-            get { return (float)GetValue(SOTF_EvoEventIntervalProperty); }
-            set { SetValue(SOTF_EvoEventIntervalProperty, value); }
-        }
-
-        public static readonly DependencyProperty SOTF_RingStartTimeProperty = DependencyProperty.Register(nameof(SOTF_RingStartTime), typeof(float), typeof(ServerProfile), new PropertyMetadata(1000.0f));
-        [DataMember]
-        public float SOTF_RingStartTime
-        {
-            get { return (float)GetValue(SOTF_RingStartTimeProperty); }
-            set { SetValue(SOTF_RingStartTimeProperty, value); }
-        }
-        #endregion
-
         #region Ragnarok
         public static readonly DependencyProperty Ragnarok_EnabledProperty = DependencyProperty.Register(nameof(Ragnarok_Enabled), typeof(bool), typeof(ServerProfile), new PropertyMetadata(false));
         [DataMember]
@@ -3068,7 +2924,7 @@ namespace ARK_Server_Manager.Lib
 
             try
             {
-                var manifestFile = ModUtils.GetSteamManifestFile(InstallDirectory, SOTF_Enabled);
+                var manifestFile = IOUtils.NormalizePath(Path.Combine(InstallDirectory, Config.Default.SteamManifestFolderRelativePath, Config.Default.ArkSteamManifestFile));
                 if (string.IsNullOrWhiteSpace(manifestFile) || !File.Exists(manifestFile))
                     return;
 
@@ -3167,11 +3023,6 @@ namespace ARK_Server_Manager.Lib
             if (!Config.Default.SectionPGMEnabled)
             {
                 exclusions.Add(ServerProfileCategory.PGM);
-            }
-
-            if (!Config.Default.SectionSOTFEnabled)
-            {
-                exclusions.Add(ServerProfileCategory.SOTF);
             }
 
             return exclusions.ToArray();
@@ -3273,23 +3124,12 @@ namespace ARK_Server_Manager.Lib
 
             serverArgs.Append($"?AllowCrateSpawnsOnTopOfStructures={this.AllowCrateSpawnsOnTopOfStructures.ToString()}");
 
-            if (Config.Default.SectionSOTFEnabled && this.SOTF_Enabled)
-            {
-                serverArgs.Append("?EvoEventInterval=").Append(this.SOTF_EvoEventInterval);
-                serverArgs.Append("?RingStartTime=").Append(this.SOTF_RingStartTime);
-            }
-
             if (!string.IsNullOrWhiteSpace(this.AdditionalArgs))
             {
                 var addArgs = this.AdditionalArgs.TrimStart();
                 if (!addArgs.StartsWith("?"))
                     serverArgs.Append(" ");
                 serverArgs.Append(addArgs);
-            }
-
-            if (!string.IsNullOrWhiteSpace(this.TotalConversionModId))
-            {
-                serverArgs.Append($" -TotalConversionMod={this.TotalConversionModId}");
             }
 
             if (this.UseRawSockets && this.NoNetThreading)
@@ -3315,43 +3155,6 @@ namespace ARK_Server_Manager.Lib
             if (this.EnableNoFishLoot)
             {
                 serverArgs.Append(" -nofishloot");
-            }
-
-            if (Config.Default.SectionSOTFEnabled && this.SOTF_Enabled)
-            {
-                if (this.SOTF_OutputGameReport)
-                {
-                    serverArgs.Append(" -OutputGameReport");
-                }
-
-                if (this.SOTF_GamePlayLogging)
-                {
-                    serverArgs.Append(" -gameplaylogging");
-                }
-
-                if (this.SOTF_DisableDeathSPectator)
-                {
-                    serverArgs.Append(" -DisableDeathSpectator");
-                }
-
-                if(this.SOTF_OnlyAdminRejoinAsSpectator)
-                {
-                    serverArgs.Append(" -OnlyAdminRejoinAsSpectator");
-                }
-
-                if (this.SOTF_NoEvents)
-                {
-                    serverArgs.Append(" -noevents");
-                }
-
-                if (this.SOTF_NoBosses)
-                {
-                    serverArgs.Append(" -nobosses");
-                }
-                else if (this.SOTF_BothBosses)
-                {
-                    serverArgs.Append(" -bothbosses");
-                }
             }
 
             if (!string.IsNullOrWhiteSpace(this.CrossArkClusterId))
@@ -3588,9 +3391,6 @@ namespace ARK_Server_Manager.Lib
             if (settings.PGM_Enabled)
                 Config.Default.SectionPGMEnabled = true;
 
-            if (settings.SOTF_Enabled)
-                Config.Default.SectionSOTFEnabled = true;
-
             var profileIniPath = Path.Combine(Path.ChangeExtension(file, null), Config.Default.ServerGameUserSettingsConfigFile);
             var configIniPath = Path.Combine(settings.InstallDirectory, Config.Default.ServerConfigRelativePath, Config.Default.ServerGameUserSettingsConfigFile);
             if (File.Exists(configIniPath))
@@ -3636,24 +3436,6 @@ namespace ARK_Server_Manager.Lib
                 return;
 
             progressCallback?.Invoke(0, "Saving...");
-
-            if (SOTF_Enabled)
-            {
-                BranchName = string.Empty;
-                BranchPassword = string.Empty;
-
-                // ensure that the auto settings are switched off for SotF servers
-                EnableAutoBackup = false;
-                EnableAutoShutdown1 = false;
-                RestartAfterShutdown1 = true;
-                EnableAutoShutdown2 = false;
-                RestartAfterShutdown2 = true;
-                EnableAutoUpdate = false;
-                AutoRestartIfShutdown = false;
-
-                // ensure the procedurally generated settings are switched off for SotF servers
-                PGM_Enabled = false;
-            }
 
             ClearSteamAppManifestBranch();
 
@@ -3715,11 +3497,6 @@ namespace ARK_Server_Manager.Lib
             if (!Config.Default.SectionPGMEnabled)
             {
                 PGM_Enabled = false;
-            }
-
-            if (!Config.Default.SectionSOTFEnabled)
-            {
-                SOTF_Enabled = false;
             }
 
             //
@@ -3954,7 +3731,7 @@ namespace ARK_Server_Manager.Lib
             validationMessage = string.Empty;
             StringBuilder result = new StringBuilder();
 
-            var appId = SOTF_Enabled ? Config.Default.AppId_SotF : Config.Default.AppId;
+            var appId = Config.Default.AppId;
 
             // checking the port values are within the valid range
             if (ServerPort < ushort.MinValue || ServerPort > ushort.MaxValue)
@@ -3966,23 +3743,6 @@ namespace ARK_Server_Manager.Lib
 
             if (forceValidate || Config.Default.ValidateProfileOnServerStart)
             {
-                // build a list of mods to be processed
-                var serverMapModId = GetProfileMapModId(this);
-                var serverMapName = GetProfileMapName(this);
-                var modIds = ModUtils.GetModIdList(ServerModIds);
-                modIds = ModUtils.ValidateModList(modIds);
-
-                var modIdList = new List<string>();
-                if (!string.IsNullOrWhiteSpace(serverMapModId))
-                    modIdList.Add(serverMapModId);
-                if (!string.IsNullOrWhiteSpace(TotalConversionModId))
-                    modIdList.Add(TotalConversionModId);
-                modIdList.AddRange(modIds);
-
-                modIdList = ModUtils.ValidateModList(modIdList);
-
-                var modDetails = SteamUtils.GetSteamModDetails(modIdList);
-
                 // check for map name.
                 if (string.IsNullOrWhiteSpace(ServerMap))
                     result.AppendLine("The map name has not been entered.");
@@ -3996,130 +3756,10 @@ namespace ARK_Server_Manager.Lib
                     result.AppendLine($"Server files have not been downloaded properly, server executable file ({Config.Default.ServerExe}) does not exist.");
                 else
                 {
+					// TODO: Determine if a steam_appid.txt file is supposed to exist or if this check is really doing anything for us.
                     var serverAppId = GetServerAppId();
                     if (!serverAppId.Equals(appId))
                         result.AppendLine("The server files are for a different Ark application.");
-                }
-
-                // check if the map is a mod and confirm the map name.
-                if (!string.IsNullOrWhiteSpace(serverMapModId))
-                {
-                    var modFolder = ModUtils.GetModPath(InstallDirectory, serverMapModId);
-                    if (!Directory.Exists(modFolder))
-                        result.AppendLine("Map mod has not been downloaded, mod folder does not exist.");
-                    else if (!File.Exists($"{modFolder}.mod"))
-                        result.AppendLine("Map mod has not been downloaded properly, mod file does not exist.");
-                    else
-                    {
-                        var modType = ModUtils.GetModType(InstallDirectory, serverMapModId);
-                        if (modType == ModUtils.MODTYPE_UNKNOWN)
-                            result.AppendLine("Map mod has not been downloaded properly, mod file is invalid.");
-                        else if (modType != ModUtils.MODTYPE_MAP)
-                            result.AppendLine("The map mod is not a valid map mod.");
-                        else
-                        {
-                            // do not process any mods that are not included in the mod list.
-                            if (modIdList.Contains(serverMapModId))
-                            {
-                                var mapName = ModUtils.GetMapName(InstallDirectory, serverMapModId);
-                                if (string.IsNullOrWhiteSpace(mapName))
-                                    result.AppendLine("Map mod file does not exist or is invalid.");
-                                else if (!mapName.Equals(serverMapName))
-                                    result.AppendLine("The map name does not match the map mod's map name.");
-                                else
-                                {
-                                    var modDetail = modDetails?.publishedfiledetails?.FirstOrDefault(d => d.publishedfileid.Equals(serverMapModId));
-                                    if (modDetail != null)
-                                    {
-                                        if (!modDetail.consumer_app_id.Equals(appId))
-                                            result.AppendLine("The map mod is for a different Ark application.");
-                                        else
-                                        {
-                                            var modVersion = ModUtils.GetModLatestTime(ModUtils.GetLatestModTimeFile(InstallDirectory, serverMapModId));
-                                            if (!modVersion.Equals(modDetail.time_updated))
-                                                result.AppendLine("The map mod is outdated.");
-                                        }
-                                    }
-                                    else
-                                        result.AppendLine("The map mod details could not be retrieved from steam.");
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // check for a total conversion mod
-                if (!string.IsNullOrWhiteSpace(TotalConversionModId))
-                {
-                    var modFolder = ModUtils.GetModPath(InstallDirectory, TotalConversionModId);
-                    if (!Directory.Exists(modFolder))
-                        result.AppendLine("Total conversion mod has not been downloaded, mod folder does not exist.");
-                    else if (!File.Exists($"{modFolder}.mod"))
-                        result.AppendLine("Total conversion mod has not been downloaded properly, mod file does not exist.");
-                    else
-                    {
-                        var modType = ModUtils.GetModType(InstallDirectory, TotalConversionModId);
-                        if (modType == ModUtils.MODTYPE_UNKNOWN)
-                            result.AppendLine("Total conversion mod has not been downloaded properly, mod file is invalid.");
-                        else if (modType != ModUtils.MODTYPE_TOTCONV)
-                            result.AppendLine("The total conversion mod is not a valid total conversion mod.");
-                        else
-                        {
-                            // do not process any mods that are not included in the mod list.
-                            if (modIdList.Contains(TotalConversionModId))
-                            {
-                                var mapName = ModUtils.GetMapName(InstallDirectory, TotalConversionModId);
-                                if (string.IsNullOrWhiteSpace(mapName))
-                                    result.AppendLine("Total conversion mod file does not exist or is invalid.");
-                                else if (!mapName.Equals(serverMapName))
-                                    result.AppendLine("The map name does not match the total conversion mod's map name.");
-                                else
-                                {
-                                    var modDetail = modDetails?.publishedfiledetails?.FirstOrDefault(d => d.publishedfileid.Equals(TotalConversionModId));
-                                    if (modDetail != null)
-                                    {
-                                        if (!modDetail.consumer_app_id.Equals(appId))
-                                            result.AppendLine("The total conversion mod is for a different Ark application.");
-                                        else
-                                        {
-                                            var modVersion = ModUtils.GetModLatestTime(ModUtils.GetLatestModTimeFile(InstallDirectory, TotalConversionModId));
-                                            if (!modVersion.Equals(modDetail.time_updated))
-                                                result.AppendLine("The total conversion mod is outdated.");
-                                        }
-                                    }
-                                    else
-                                        result.AppendLine("The total conversion mod details could not be retrieved from steam.");
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // check for the mods
-                foreach (var modId in modIds)
-                {
-                    var modFolder = ModUtils.GetModPath(InstallDirectory, modId);
-                    if (!Directory.Exists(modFolder))
-                        result.AppendLine($"Mod {modId} has not been downloaded, mod folder does not exist.");
-                    else if (!File.Exists($"{modFolder}.mod"))
-                        result.AppendLine($"Mod {modId} has not been downloaded properly, mod file does not exist.");
-                    else
-                    {
-                        var modDetail = modDetails?.publishedfiledetails?.FirstOrDefault(d => d.publishedfileid.Equals(modId));
-                        if (modDetail != null)
-                        {
-                            if (!modDetail.consumer_app_id.Equals(appId))
-                                result.AppendLine($"Mod {modId} is for a different Ark application.");
-                            else
-                            {
-                                var modVersion = ModUtils.GetModLatestTime(ModUtils.GetLatestModTimeFile(InstallDirectory, modId));
-                                if (modVersion == 0 || !modVersion.Equals(modDetail.time_updated))
-                                    result.AppendLine($"Mod {modId} is outdated.");
-                            }
-                        }
-                        else
-                            result.AppendLine($"Mod {modId} details could not be retrieved from steam.");
-                    }
                 }
 
                 //// check for cluster settings
@@ -4538,7 +4178,6 @@ namespace ARK_Server_Manager.Lib
             this.ClearValue(RCONServerGameLogBufferProperty);
 
             this.ClearValue(ServerMapProperty);
-            this.ClearValue(TotalConversionModIdProperty);
             this.ClearValue(ServerModIdsProperty);
 
             this.ClearValue(EnableExtinctionEventProperty);
@@ -4827,27 +4466,6 @@ namespace ARK_Server_Manager.Lib
             this.ClearValue(RandomSupplyCratePointsProperty);
         }
 
-        public void ResetSOTFSection()
-        {
-            this.ClearValue(SOTF_EnabledProperty);
-            this.ClearValue(SOTF_OutputGameReportProperty);
-            this.ClearValue(SOTF_GamePlayLoggingProperty);
-            this.ClearValue(SOTF_DisableDeathSPectatorProperty);
-            this.ClearValue(SOTF_OnlyAdminRejoinAsSpectatorProperty);
-            this.ClearValue(SOTF_MaxNumberOfPlayersInTribeProperty);
-            this.ClearValue(SOTF_BattleNumOfTribesToStartGameProperty);
-            this.ClearValue(SOTF_TimeToCollapseRODProperty);
-            this.ClearValue(SOTF_BattleAutoStartGameIntervalProperty);
-            this.ClearValue(SOTF_BattleAutoRestartGameIntervalProperty);
-            this.ClearValue(SOTF_BattleSuddenDeathIntervalProperty);
-
-            this.ClearValue(SOTF_NoEventsProperty);
-            this.ClearValue(SOTF_NoBossesProperty);
-            this.ClearValue(SOTF_BothBossesProperty);
-            this.ClearValue(SOTF_EvoEventIntervalProperty);
-            this.ClearValue(SOTF_RingStartTimeProperty);
-        }
-
         public void ResetStructuresSection()
         {
             this.ClearValue(DisableStructurePlacementCollisionProperty);
@@ -4964,9 +4582,6 @@ namespace ARK_Server_Manager.Lib
                 case ServerProfileCategory.PGM:
                     SyncPGMSection(sourceProfile);
                     break;
-                case ServerProfileCategory.SOTF:
-                    SyncSOTFSection(sourceProfile);
-                    break;
             }
         }
 
@@ -4994,7 +4609,6 @@ namespace ARK_Server_Manager.Lib
             this.SetValue(AdminLoggingProperty, sourceProfile.AdminLogging);
 
             this.SetValue(ServerMapProperty, sourceProfile.ServerMap);
-            this.SetValue(TotalConversionModIdProperty, sourceProfile.TotalConversionModId);
             this.SetValue(ServerModIdsProperty, sourceProfile.ServerModIds);
 
             this.SetValue(EnableExtinctionEventProperty, sourceProfile.EnableExtinctionEvent);
@@ -5401,27 +5015,6 @@ namespace ARK_Server_Manager.Lib
             SaveServerFileWhitelisted();
         }
 
-        private void SyncSOTFSection(ServerProfile sourceProfile)
-        {
-            this.SetValue(SOTF_EnabledProperty, sourceProfile.SOTF_Enabled);
-            this.SetValue(SOTF_OutputGameReportProperty, sourceProfile.SOTF_OutputGameReport);
-            this.SetValue(SOTF_GamePlayLoggingProperty, sourceProfile.SOTF_GamePlayLogging);
-            this.SetValue(SOTF_DisableDeathSPectatorProperty, sourceProfile.SOTF_DisableDeathSPectator);
-            this.SetValue(SOTF_OnlyAdminRejoinAsSpectatorProperty, sourceProfile.SOTF_OnlyAdminRejoinAsSpectator);
-            this.SetValue(SOTF_MaxNumberOfPlayersInTribeProperty, sourceProfile.SOTF_MaxNumberOfPlayersInTribe);
-            this.SetValue(SOTF_BattleNumOfTribesToStartGameProperty, sourceProfile.SOTF_BattleNumOfTribesToStartGame);
-            this.SetValue(SOTF_TimeToCollapseRODProperty, sourceProfile.SOTF_TimeToCollapseROD);
-            this.SetValue(SOTF_BattleAutoStartGameIntervalProperty, sourceProfile.SOTF_BattleAutoStartGameInterval);
-            this.SetValue(SOTF_BattleAutoRestartGameIntervalProperty, sourceProfile.SOTF_BattleAutoRestartGameInterval);
-            this.SetValue(SOTF_BattleSuddenDeathIntervalProperty, sourceProfile.SOTF_BattleSuddenDeathInterval);
-
-            this.SetValue(SOTF_NoEventsProperty, sourceProfile.SOTF_NoEvents);
-            this.SetValue(SOTF_NoBossesProperty, sourceProfile.SOTF_NoBosses);
-            this.SetValue(SOTF_BothBossesProperty, sourceProfile.SOTF_BothBosses);
-            this.SetValue(SOTF_EvoEventIntervalProperty, sourceProfile.SOTF_EvoEventInterval);
-            this.SetValue(SOTF_RingStartTimeProperty, sourceProfile.SOTF_RingStartTime);
-        }
-
         private void SyncStructuresSection(ServerProfile sourceProfile)
         {
             this.SetValue(DisableStructurePlacementCollisionProperty, sourceProfile.DisableStructurePlacementCollision);
@@ -5682,20 +5275,7 @@ namespace ARK_Server_Manager.Lib
             if (pgmEnabled)
                 return Config.Default.DefaultServerMap_PGM;
 
-            return ModUtils.GetMapName(serverMap);
-        }
-
-        public static string GetProfileMapModId(ServerProfile profile)
-        {
-            return GetProfileMapModId(profile?.ServerMap, profile?.PGM_Enabled ?? false);
-        }
-
-        public static string GetProfileMapModId(string serverMap, bool pgmEnabled)
-        {
-            if (pgmEnabled)
-                return string.Empty;
-
-            return ModUtils.GetMapModId(serverMap);
+            return serverMap;
         }
 
         public static string GetProfileSavePath(ServerProfile profile)
@@ -5727,7 +5307,7 @@ namespace ARK_Server_Manager.Lib
             if (pgmEnabled)
                 return $"{pgmName ?? string.Empty}_V2";
 
-            return ModUtils.GetMapName(serverMap);
+            return serverMap;
         }
         #endregion
     }

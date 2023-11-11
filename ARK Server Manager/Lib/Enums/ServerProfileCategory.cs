@@ -20,6 +20,5 @@
         CraftingOverrides,
         SupplyCrateOverrides,
         PGM,
-        SOTF,
     }
 }

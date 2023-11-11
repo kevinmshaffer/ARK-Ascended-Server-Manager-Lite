@@ -79,32 +79,10 @@
                                 <Label.Style>
                                     <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
                                         <Setter Property="Content" Value="{DynamicResource MainWindow_VersionLabel}"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ElementName=Main, Path=BetaVersion}" Value="True">
-                                                <Setter Property="Content" Value="{DynamicResource MainWindow_BetaVersionLabel}"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
                                     </Style>
                                 </Label.Style>
                             </Label>
                             <Label Margin="5,0,0,0" Background="Transparent" Foreground="White" FontSize="12" Content="{Binding Source={x:Static local:App.Instance}, Path=Version}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                            <Button Margin="5" Click="ASMPatchNotes_Click" ToolTip="{DynamicResource ServerSettings_PatchNotesTooltip}" Style="{StaticResource ButtonStyle1}">
-                                <Image Source="{lib:Icon Path=/Ark Server Manager;component/Art/ChangeNotes.ico,Size=32}"/>
-                            </Button>
-                            <Button Margin="5,0,0,0" Background="#00AA00" Foreground="White" Padding="1" BorderThickness="1" BorderBrush="White" ContentStringFormat="{DynamicResource MainWindow_UpdateToLabelFormat}" Content="{Binding LatestASMVersion}" Click="Upgrade_Click" VerticalAlignment="Center" >
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding NewASMAvailable}" Value="True">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding NewASMAvailable}" Value="False">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
                         </StackPanel>
                     </Grid>
 
@@ -274,7 +252,6 @@
                     <Grid DockPanel.Dock="Right" VerticalAlignment="Top" Margin="5" MinWidth="130">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
-                            <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -294,12 +271,6 @@
                         </Button>
                         <Button Grid.Row="0" Grid.Column="3" Margin="5,0,0,0" HorizontalAlignment="Right" Click="Settings_Click" ToolTip="{DynamicResource MainWindow_OpenSettingsTooltip}" Style="{StaticResource ButtonStyle1}">
                             <Image Source="{lib:Icon Path=/Ark Server Manager;component/Art/Settings.ico,Size=32}"/>
-                        </Button>
-                        <Button Grid.Row="1" Grid.Column="0" Margin="5,2,0,0" HorizontalAlignment="Right" Click="Help_Click" ToolTip="{DynamicResource MainWindow_OpenHelpTooltip}" Style="{StaticResource ButtonStyle1}">
-                            <Image Source="{lib:Icon Path=/Ark Server Manager;component/Art/Help.ico,Size=32}"/>
-                        </Button>
-                        <Button Grid.Row="1" Grid.Column="1" Margin="5,2,0,0" Grid.ColumnSpan="3" Click="Donate_Click" ToolTip="{DynamicResource MainWindow_DonateTooltip}" Style="{StaticResource ButtonStyle3}">
-                            <Image Source="../Art/Donate.png"/>
                         </Button>
                     </Grid>
                 </DockPanel>
